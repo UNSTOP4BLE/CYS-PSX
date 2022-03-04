@@ -27,7 +27,10 @@ iso/bf/main.arc: iso/bf/idle.tim iso/bf/down.tim iso/bf/up.tim iso/bf/left.tim i
 iso/bf/dead.arc: iso/bf/dead1.tim iso/bf/dead2.tim iso/bf/retry.tim
 
 # Dad
-iso/dad/main.arc: iso/dad/idle0.tim iso/dad/idle1.tim iso/dad/idle2.tim iso/dad/left0.tim iso/dad/left1.tim iso/dad/down0.tim iso/dad/down1.tim iso/dad/up0.tim iso/dad/up1.tim iso/dad/right0.tim iso/dad/right1.tim
+iso/dad/main.arc: iso/dad/idle0.tim iso/dad/idle1.tim iso/dad/left0.tim iso/dad/down0.tim iso/dad/up0.tim iso/dad/right0.tim 
+
+
+# iso/dad/main.arc: iso/dad/idle0.tim iso/dad/idle1.tim iso/dad/idle2.tim iso/dad/left0.tim iso/dad/left1.tim iso/dad/down0.tim iso/dad/down1.tim iso/dad/up0.tim iso/dad/up1.tim iso/dad/right0.tim iso/dad/right1.tim
 
 # GF
 iso/gf/main.arc: iso/gf/gf0.tim iso/gf/gf1.tim iso/gf/gf2.tim

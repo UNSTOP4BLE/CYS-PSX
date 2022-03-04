@@ -17,11 +17,11 @@ enum
 	Dad_ArcMain_Idle0,
 	Dad_ArcMain_Idle1,
 	Dad_ArcMain_Left0,
-	Dad_ArcMain_Left1,
+//	Dad_ArcMain_Left1,
 	Dad_ArcMain_Down0,
-	Dad_ArcMain_Down1,
+//	Dad_ArcMain_Down1,
 	Dad_ArcMain_Up0,
-	Dad_ArcMain_Up1,
+	//Dad_ArcMain_Up1,
 	Dad_ArcMain_Right,
 	
 	Dad_Arc_Max,
@@ -49,18 +49,18 @@ static const CharFrame char_dad_frame[] = {
 	
 	{Dad_ArcMain_Left0, {  0,   0, 120, 135}, { 0, 0}}, //4 left 1
 	{Dad_ArcMain_Left0, {120,   0, 115, 133}, { 0, 0}}, //5 left 2
-	{Dad_ArcMain_Left1, {  0,   0, 113, 133}, { 0, 0}}, //4 left 1
-	{Dad_ArcMain_Left1, {113,   0, 113, 133}, { 0, 0}}, //5 left 2
+	//{Dad_ArcMain_Left1, {  0,   0, 113, 133}, { 0, 0}}, //4 left 1
+	//{Dad_ArcMain_Left1, {113,   0, 113, 133}, { 0, 0}}, //5 left 2
 	
 	{Dad_ArcMain_Down0, {  0,   0, 144, 96}, { 0, 0}}, //6 down 1
 	{Dad_ArcMain_Down0, {  0,  96, 146, 100}, { 0, 0}}, //7 down 2
-	{Dad_ArcMain_Down1, {  0,   0, 146, 100}, { 0, 0}}, //6 down 1
-	{Dad_ArcMain_Down1, {  0, 100, 147, 101}, { 0, 0}}, //7 down 2
+	//{Dad_ArcMain_Down1, {  0,   0, 146, 100}, { 0, 0}}, //6 down 1
+	//{Dad_ArcMain_Down1, {  0, 100, 147, 101}, { 0, 0}}, //7 down 2
 	
 	{Dad_ArcMain_Up0, {  0,   0, 111, 146}, { 0, 0}}, //8 up 1
 	{Dad_ArcMain_Up0, {111,   0, 113, 142}, { 0, 0}}, //9 up 2
-	{Dad_ArcMain_Up1, {  0,   0, 115, 138}, { 0, 0}}, //8 up 1
-	{Dad_ArcMain_Up1, {115,   0, 115, 138}, { 0, 0}}, //9 up 2
+	//{Dad_ArcMain_Up1, {  0,   0, 115, 138}, { 0, 0}}, //8 up 1
+	//{Dad_ArcMain_Up1, {115,   0, 115, 138}, { 0, 0}}, //9 up 2
 	
 	{Dad_ArcMain_Right, {  0,   0, 0, 0}, { 0, 0}}, //10 right 1
 	{Dad_ArcMain_Right, {  0,   0, 0, 0}, { 0, 0}}, //11 right 2
@@ -155,10 +155,10 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 	const char **pathp = (const char *[]){
 		"idle0.tim", //Dad_ArcMain_Idle0
 		"idle1.tim", //Dad_ArcMain_Idle1
-		"left.tim",  //Dad_ArcMain_Left
-		"down.tim",  //Dad_ArcMain_Down
-		"up.tim",    //Dad_ArcMain_Up
-		"right.tim", //Dad_ArcMain_Right
+		"left0.tim",  //Dad_ArcMain_Left
+		"down0.tim",  //Dad_ArcMain_Down
+		"up0.tim",    //Dad_ArcMain_Up
+		"right0.tim", //Dad_ArcMain_Right
 		NULL
 	};
 	IO_Data *arc_ptr = this->arc_ptr;

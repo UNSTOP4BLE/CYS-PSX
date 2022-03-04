@@ -12,6 +12,11 @@
 //Player enums
 typedef enum
 {
+	PlayerAnim_LeftMiss = CharAnim_Max,
+	PlayerAnim_DownMiss,
+	PlayerAnim_UpMiss,
+	PlayerAnim_RightMiss,
+	
 	PlayerAnim_Dead0, //BREAK
 	PlayerAnim_Dead1, //Idle with mic
 	PlayerAnim_Dead2, //Mic Drop

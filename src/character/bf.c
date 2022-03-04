@@ -131,6 +131,11 @@ static const Animation char_bf_anim[PlayerAnim_Max] = {
 	{2, (const u8[]){11, 12, ASCR_BACK, 1}},             //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
+
 	{5, (const u8[]){21, 22, 23, 24, 24, 24, 24, 24, 24, 24, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
 	{5, (const u8[]){24, ASCR_REPEAT}},                                                       //PlayerAnim_Dead1
 	{3, (const u8[]){25, 26, 27, 28, 28, 28, 28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
@@ -179,12 +184,16 @@ void Char_BF_Tick(Character *character)
 		if (Animatable_Ended(&character->animatable) &&
 			(character->animatable.anim != CharAnim_Left &&
 		     character->animatable.anim != CharAnim_LeftAlt &&
+		     character->animatable.anim != PlayerAnim_LeftMiss &&
 		     character->animatable.anim != CharAnim_Down &&
 		     character->animatable.anim != CharAnim_DownAlt &&
+		     character->animatable.anim != PlayerAnim_DownMiss &&
 		     character->animatable.anim != CharAnim_Up &&
 		     character->animatable.anim != CharAnim_UpAlt &&
+		     character->animatable.anim != PlayerAnim_UpMiss &&
 		     character->animatable.anim != CharAnim_Right &&
-		     character->animatable.anim != CharAnim_RightAlt) &&
+		     character->animatable.anim != CharAnim_RightAlt &&
+		     character->animatable.anim != PlayerAnim_RightMiss) &&
 			(stage.song_step & 0x7) == 0)
 			character->set_anim(character, CharAnim_Idle);
 	}

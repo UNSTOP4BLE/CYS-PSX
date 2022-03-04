@@ -25,7 +25,7 @@
 //Stage constants
 //#define STAGE_NOHUD //Disable the HUD
 
-//#define STAGE_FREECAM //Freecam
+#define STAGE_FREECAM //Freecam
 
 //normal note x
 static const fixed_t note_x[8] = {
@@ -58,11 +58,11 @@ static const fixed_t note_xmiddle[8] = {
 static const fixed_t note_y = FIXED_DEC(32 - SCREEN_HEIGHT2, 1);
 
 static const u16 note_key[] = {INPUT_LEFT, INPUT_DOWN, INPUT_UP, INPUT_RIGHT};
-static const u8 note_anims[4][2] = {
-	{CharAnim_Left,  CharAnim_LeftAlt},
-	{CharAnim_Down,  CharAnim_DownAlt},
-	{CharAnim_Up,    CharAnim_UpAlt},
-	{CharAnim_Right, CharAnim_RightAlt},
+static const u8 note_anims[4][3] = {
+	{CharAnim_Left,  CharAnim_LeftAlt,  PlayerAnim_LeftMiss},
+	{CharAnim_Down,  CharAnim_DownAlt,  PlayerAnim_DownMiss},
+	{CharAnim_Up,    CharAnim_UpAlt,    PlayerAnim_UpMiss},
+	{CharAnim_Right, CharAnim_RightAlt, PlayerAnim_RightMiss},
 };
 
 //middlescroll

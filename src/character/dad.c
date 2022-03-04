@@ -16,9 +16,12 @@ enum
 {
 	Dad_ArcMain_Idle0,
 	Dad_ArcMain_Idle1,
-	Dad_ArcMain_Left,
-	Dad_ArcMain_Down,
-	Dad_ArcMain_Up,
+	Dad_ArcMain_Left0,
+	Dad_ArcMain_Left1,
+	Dad_ArcMain_Down0,
+	Dad_ArcMain_Down1,
+	Dad_ArcMain_Up0,
+	Dad_ArcMain_Up1,
 	Dad_ArcMain_Right,
 	
 	Dad_Arc_Max,
@@ -39,22 +42,28 @@ typedef struct
 
 //Dad character definitions
 static const CharFrame char_dad_frame[] = {
-	{Dad_ArcMain_Idle0, {  0,   0, 106, 192}, { 42, 183+4}}, //0 idle 1
-	{Dad_ArcMain_Idle0, {107,   0, 108, 190}, { 43, 181+4}}, //1 idle 2
-	{Dad_ArcMain_Idle1, {  0,   0, 107, 190}, { 42, 181+4}}, //2 idle 3
-	{Dad_ArcMain_Idle1, {108,   0, 105, 192}, { 41, 183+4}}, //3 idle 4
+	{Dad_ArcMain_Idle0, {  0,   0, 0, 0}, { 0, 0}}, //0 idle 1
+	{Dad_ArcMain_Idle0, {  0,   0, 0, 0}, { 0, 0}}, //1 idle 2
+	{Dad_ArcMain_Idle1, {  0,   0, 0, 0}, { 0, 0}}, //2 idle 3
+	{Dad_ArcMain_Idle1, {  0,   0, 0, 0}, { 0, 0}}, //3 idle 4
 	
-	{Dad_ArcMain_Left, {  0,   0,  93, 195}, { 40, 185+4}}, //4 left 1
-	{Dad_ArcMain_Left, { 94,   0,  95, 195}, { 40, 185+4}}, //5 left 2
+	{Dad_ArcMain_Left0, {  0,   0, 120, 135}, { 0, 0}}, //4 left 1
+	{Dad_ArcMain_Left0, {120,   0, 115, 133}, { 0, 0}}, //5 left 2
+	{Dad_ArcMain_Left1, {  0,   0, 113, 133}, { 0, 0}}, //4 left 1
+	{Dad_ArcMain_Left1, {113,   0, 113, 133}, { 0, 0}}, //5 left 2
 	
-	{Dad_ArcMain_Down, {  0,   0, 118, 183}, { 43, 174+4}}, //6 down 1
-	{Dad_ArcMain_Down, {119,   0, 117, 183}, { 43, 175+4}}, //7 down 2
+	{Dad_ArcMain_Down0, {  0,   0, 144, 96}, { 0, 0}}, //6 down 1
+	{Dad_ArcMain_Down0, {  0,  96, 146, 100}, { 0, 0}}, //7 down 2
+	{Dad_ArcMain_Down1, {  0,   0, 146, 100}, { 0, 0}}, //6 down 1
+	{Dad_ArcMain_Down1, {  0, 100, 147, 101}, { 0, 0}}, //7 down 2
 	
-	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
-	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up0, {  0,   0, 111, 146}, { 0, 0}}, //8 up 1
+	{Dad_ArcMain_Up0, {111,   0, 113, 142}, { 0, 0}}, //9 up 2
+	{Dad_ArcMain_Up1, {  0,   0, 115, 138}, { 0, 0}}, //8 up 1
+	{Dad_ArcMain_Up1, {115,   0, 115, 138}, { 0, 0}}, //9 up 2
 	
-	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189+4}}, //10 right 1
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189+4}}, //11 right 2
+	{Dad_ArcMain_Right, {  0,   0, 0, 0}, { 0, 0}}, //10 right 1
+	{Dad_ArcMain_Right, {  0,   0, 0, 0}, { 0, 0}}, //11 right 2
 };
 
 static const Animation char_dad_anim[CharAnim_Max] = {

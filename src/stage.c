@@ -70,29 +70,10 @@ int arrowposx,middleswitch;
 
 //Stage definitions
 #include "character/bf.h"
-#include "character/bfweeb.h"
 #include "character/dad.h"
-#include "character/spook.h"
-#include "character/pico.h"
-#include "character/mom.h"
-#include "character/xmasbf.h"
-#include "character/xmasp.h"
-#include "character/senpai.h"
-#include "character/senpaim.h"
-#include "character/spirit.h"
-#include "character/tank.h"
 #include "character/gf.h"
-#include "character/gfweeb.h"
-#include "character/clucky.h"
 
-#include "stage/dummy.h"
 #include "stage/week1.h"
-#include "stage/week2.h"
-#include "stage/week3.h"
-#include "stage/week4.h"
-#include "stage/week5.h"
-#include "stage/week6.h"
-#include "stage/week7.h"
 
 static const StageDef stage_defs[StageId_Max] = {
 	#include "stagedef_disc1.h"
@@ -319,7 +300,7 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 	//Perform note check
 	for (Note *note = stage.cur_note;; note++)
 	{
-		if (!(note->type & NOTE_FLAG_MINE))
+		if (!(note->type & NOTE_FLAG_MINE | NOTE_FLAG_AMOGUS))
 		{
 			//Check if note can be hit
 			fixed_t note_fp = (fixed_t)note->pos << FIXED_SHIFT;
@@ -363,6 +344,28 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 			#else
 				(void)hit_type;
 			#endif
+			return;
+		}
+		else if (note->type & (NOTE_FLAG_AMOGUS))
+		{
+			//Check if danger can be hit
+			fixed_t note_fp = (fixed_t)note->pos << FIXED_SHIFT;
+			if (note_fp - (stage.late_safe * 3 / 5) > stage.note_scroll)
+				break;
+			if (note_fp + (stage.late_safe * 2 / 5) < stage.note_scroll)
+				continue;
+			if ((note->type & NOTE_FLAG_HIT) || (note->type & (NOTE_FLAG_OPPONENT | 0x3)) != type || (note->type & NOTE_FLAG_SUSTAIN))
+				continue;
+				
+				
+			//Hit the mogr
+			note->type |= NOTE_FLAG_HIT;
+				
+			this->health -= 230;
+				
+			this->character->set_anim(this->character, note_anims[type & 0x3][1]);
+
+			this->arrow_hitan[type & 0x3] = -1;
 			return;
 		}
 		else

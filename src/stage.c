@@ -82,6 +82,8 @@ static const StageDef stage_defs[StageId_Max] = {
 //Stage state
 Stage stage;
 
+int drain = 0;
+
 //Stage music functions
 static void Stage_StartVocal(void)
 {
@@ -300,7 +302,7 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 	//Perform note check
 	for (Note *note = stage.cur_note;; note++)
 	{
-		if (!(note->type & NOTE_FLAG_MINE | NOTE_FLAG_AMOGUS))
+		if (!(note->type & (NOTE_FLAG_MINE | NOTE_FLAG_AMOGUS)))
 		{
 			//Check if note can be hit
 			fixed_t note_fp = (fixed_t)note->pos << FIXED_SHIFT;
@@ -362,10 +364,39 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 			note->type |= NOTE_FLAG_HIT;
 				
 			this->health -= 230;
+			drain = 400;
 				
 			this->character->set_anim(this->character, note_anims[type & 0x3][1]);
 
 			this->arrow_hitan[type & 0x3] = -1;
+			return;
+			
+			#ifdef PSXF_NETWORK
+				if (stage.mode >= StageMode_Net1)
+				{
+					//Send note hit packet
+					Packet note_hit;
+					note_hit[0] = PacketType_NoteHit;
+					
+					u16 note_i = note - stage.notes;
+					note_hit[1] = note_i >> 0;
+					note_hit[2] = note_i >> 8;
+					
+					note_hit[3] = this->score >> 0;
+					note_hit[4] = this->score >> 8;
+					note_hit[5] = this->score >> 16;
+					note_hit[6] = this->score >> 24;
+					
+					/*
+					note_hit[7] = 0xFF;
+					
+					note_hit[8] = this->combo >> 0;
+					note_hit[9] = this->combo >> 8;
+					*/
+					
+					Network_Send(&note_hit);
+				}
+			#endif
 			return;
 		}
 		else
@@ -383,9 +414,9 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 			note->type |= NOTE_FLAG_HIT;
 			
 			if (stage.stage_id == StageId_Clwn_4)
-				this->health = -0x7000;
+				this->health += 230;
 			else
-				this->health -= 2000;
+				this->health += 230;
 			if (this->character->spec & CHAR_SPEC_MISSANIM)
 				this->character->set_anim(this->character, note_anims[type & 0x3][2]);
 			else
@@ -559,7 +590,7 @@ static void Stage_ProcessPlayer(PlayerState *this, Pad *pad, boolean playing)
 					break;
 				if (note_fp + stage.late_safe < stage.note_scroll)
 					continue;
-				if ((note->type & NOTE_FLAG_MINE) || (note->type & NOTE_FLAG_OPPONENT) != i)
+				if ((note->type & NOTE_FLAG_AMOGUS) || (note->type & NOTE_FLAG_OPPONENT) != i)
 					continue;
 				
 				//Handle note hit
@@ -839,7 +870,35 @@ static void Stage_DrawNotes(void)
 				continue;
 			
 			//Miss note if player's note
-			if (!(note->type & (bot | NOTE_FLAG_HIT | NOTE_FLAG_MINE)))
+			if ((note->type == NOTE_FLAG_MINE))
+			{
+				if (stage.mode < StageMode_Net1 || i == ((stage.mode == StageMode_Net1) ? 0 : 1))
+				{ 
+					this->health -= 2000;
+					Stage_CutVocal();
+					Stage_MissNote(this);
+			   
+					//Send miss packet
+					#ifdef PSXF_NETWORK
+						if (stage.mode >= StageMode_Net1)
+						{
+							//Send note hit packet
+							Packet note_hit;
+							note_hit[0] = PacketType_NoteMiss;
+							note_hit[1] = 0xFF;
+							
+							note_hit[2] = this->score >> 0;
+							note_hit[3] = this->score >> 8;
+							note_hit[4] = this->score >> 16;
+							note_hit[5] = this->score >> 24;
+							
+							Network_Send(&note_hit);
+						}
+					#endif
+				}
+			}
+			
+			if (!(note->type & (bot | NOTE_FLAG_HIT | NOTE_FLAG_AMOGUS)))
 			{
 				if (stage.mode < StageMode_Net1 || i == ((stage.mode == StageMode_Net1) ? 0 : 1))
 				{
@@ -950,6 +1009,32 @@ static void Stage_DrawNotes(void)
 					}
 				}
 			}
+			else if (note->type & NOTE_FLAG_AMOGUS)
+			{
+				#ifdef STAGE_FUNKYFRIDAY
+				if (1)
+					continue;
+				#endif
+				//Don't draw if already hit
+				if (note->type & NOTE_FLAG_HIT)
+					continue;
+				
+				//Draw note body
+				note_src.x = 192 + ((note->type & 0x1) << 5);
+				note_src.y = 65 + ((note->type & 0x2) << 4);
+				note_src.w = 32;
+				note_src.h = 32;
+				
+				note_dst.x = note_x[(note->type & 0x7) ^ stage.note_swap] - FIXED_DEC(16,1);
+				note_dst.y = y - FIXED_DEC(16,1);
+				note_dst.w = note_src.w << FIXED_SHIFT;
+				note_dst.h = note_src.h << FIXED_SHIFT;
+				
+				if (stage.downscroll)
+					note_dst.y = -note_dst.y - note_dst.h;
+				Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
+			}
+			
 			else if (note->type & NOTE_FLAG_MINE)
 			{
 				//Don't draw if already hit
@@ -970,39 +1055,6 @@ static void Stage_DrawNotes(void)
 				if (stage.downscroll)
 					note_dst.y = -note_dst.y - note_dst.h;
 				Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
-				
-				if (stage.stage_id == StageId_Clwn_4)
-				{
-					//Draw note halo
-					note_src.x = 160;
-					note_src.y = 128 + ((animf_count & 0x3) << 3);
-					note_src.w = 32;
-					note_src.h = 8;
-					
-					note_dst.y -= FIXED_DEC(6,1);
-					note_dst.h >>= 2;
-					
-					Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
-				}
-				else
-				{
-					//Draw note fire
-					note_src.x = 192 + ((animf_count & 0x1) << 5);
-					note_src.y = 64 + ((animf_count & 0x2) * 24);
-					note_src.w = 32;
-					note_src.h = 48;
-					
-					if (stage.downscroll)
-					{
-						note_dst.y += note_dst.h;
-						note_dst.h = note_dst.h * -3 / 2;
-					}
-					else
-					{
-						note_dst.h = note_dst.h * 3 / 2;
-					}
-					Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
-				}
 			}
 			else
 			{
@@ -1176,7 +1228,7 @@ static void Stage_LoadChart(void)
 	stage.player_state[1].max_score = 0;
 	for (Note *note = stage.notes; note->pos != 0xFFFF; note++)
 	{
-		if (note->type & (NOTE_FLAG_SUSTAIN | NOTE_FLAG_MINE))
+		if (note->type & (NOTE_FLAG_SUSTAIN | NOTE_FLAG_MINE | NOTE_FLAG_AMOGUS))
 			continue;
 		if (note->type & NOTE_FLAG_OPPONENT)
 			stage.player_state[1].max_score += 35;
@@ -1231,6 +1283,8 @@ static void Stage_LoadState(void)
 	stage.flag = STAGE_FLAG_VOCAL_ACTIVE;
 	
 	stage.gf_speed = 1 << 2;
+	
+	drain = 0;
 	
 	stage.state = StageState_Play;
 	
@@ -1543,6 +1597,14 @@ void Stage_Tick(void)
 				
 				bot_dst.w = bot_fill.w << FIXED_SHIFT;
 				Stage_DrawTex(&stage.tex_hud0, &bot_fill, &bot_dst, stage.bump);
+			}
+			
+			//drain effect
+			if (drain > 0)
+			{
+				drain -= 1;
+				if (stage.player_state[0].health >= 1)
+					stage.player_state[0].health -= 20;
 			}
 
 			//Clear per-frame flags

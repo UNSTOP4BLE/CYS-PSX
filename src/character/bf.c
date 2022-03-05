@@ -39,8 +39,8 @@ enum
 {
 	BF_ArcMain_Idle,
 	BF_ArcMain_Left,
-	BF_ArcMain_Up,
 	BF_ArcMain_Down,
+	BF_ArcMain_Up,
 	BF_ArcMain_Right,
 	BF_ArcMain_Dead0, //BREAK
 	
@@ -96,13 +96,13 @@ static const CharFrame char_bf_frame[] = {
 	
 	{BF_ArcMain_Up, {  0,   0, 106,  114}, { 0,  0}}, //12 idle 1
 	{BF_ArcMain_Up, {106,   0,  96,  120}, { 0,  0}}, //13 idle 1
-	{BF_ArcMain_Up, {  0, 114,  98,  120}, { 0,  0}}, //15 idle 1
-	{BF_ArcMain_Up, { 98, 120,  94,  123}, { 0,  0}}, //16 idle 1
+	{BF_ArcMain_Up, {  0, 114,  98,  120}, { 0,  0}}, //14 idle 1
+	{BF_ArcMain_Up, { 98, 120,  94,  123}, { 0,  0}}, //15 idle 1
 	
-	{BF_ArcMain_Right, {  0,   0, 110,  113}, { 0,  0}}, //17 idle 1
-	{BF_ArcMain_Right, {110,   0, 103,  119}, { 0,  0}}, //18 idle 1
-	{BF_ArcMain_Right, {  0, 113, 103,  118}, { 0,  0}}, //19 idle 1
-	{BF_ArcMain_Right, {103, 119, 102,  121}, { 0,  0}}, //20 idle 1
+	{BF_ArcMain_Right, {  0,   0, 110,  113}, { 0,  0}}, //16 idle 1
+	{BF_ArcMain_Right, {110,   0, 103,  119}, { 0,  0}}, //17 idle 1
+	{BF_ArcMain_Right, {  0, 113, 103,  118}, { 0,  0}}, //18 idle 1
+	{BF_ArcMain_Right, {103, 119, 102,  121}, { 0,  0}}, //19 idle 1
 
 	{BF_ArcMain_Dead0, {  0,   0, 128, 128}, { 53,  98}}, //23 dead0 0
 	{BF_ArcMain_Dead0, {128,   0, 128, 128}, { 53,  98}}, //24 dead0 1

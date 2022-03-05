@@ -1011,10 +1011,6 @@ static void Stage_DrawNotes(void)
 			}
 			else if (note->type & NOTE_FLAG_AMOGUS)
 			{
-				#ifdef STAGE_FUNKYFRIDAY
-				if (1)
-					continue;
-				#endif
 				//Don't draw if already hit
 				if (note->type & NOTE_FLAG_HIT)
 					continue;
@@ -1032,7 +1028,8 @@ static void Stage_DrawNotes(void)
 				
 				if (stage.downscroll)
 					note_dst.y = -note_dst.y - note_dst.h;
-				Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
+				//todo
+				Gfx_BlendTex(&stage.tex_hud0, &note_src, &note_dst, 0);
 			}
 			
 			else if (note->type & NOTE_FLAG_MINE)

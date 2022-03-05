@@ -44,32 +44,32 @@ typedef struct
 
 //Dad character definitions
 static const CharFrame char_dad_frame[] = {
-	{Dad_ArcMain_Idle0, {  0,   0, 142, 123}, { 0, 0}}, //0 idle 1
-	{Dad_ArcMain_Idle0, {  0, 123, 141, 124}, { 0, 0}}, //1 idle 2
-	{Dad_ArcMain_Idle1, {  0,   0, 141, 125}, { 0, 0}}, //2 idle 3
-	{Dad_ArcMain_Idle1, {  0, 125, 141, 124}, { 0, 0}}, //3 idle 4
-	{Dad_ArcMain_Idle2, {  0,   0, 142, 123}, { 0, 0}}, //2 idle 3
-	{Dad_ArcMain_Idle2, {  0, 123, 142, 123}, { 0, 0}}, //3 idle 4
+	{Dad_ArcMain_Idle0, {  0,   0, 142, 123}, { 74 - 42, 78 + 45}}, //0 idle 1
+	{Dad_ArcMain_Idle0, {  0, 123, 141, 124}, { 73 - 42, 78 + 45}}, //1 idle 2
+	{Dad_ArcMain_Idle1, {  0,   0, 141, 125}, { 73 - 42, 78 + 45}}, //2 idle 3
+	{Dad_ArcMain_Idle1, {  0, 125, 141, 124}, { 73 - 42, 78 + 45}}, //3 idle 4
+	{Dad_ArcMain_Idle2, {  0,   0, 142, 123}, { 74 - 42, 78 + 45}}, //2 idle 3
+	{Dad_ArcMain_Idle2, {  0, 123, 142, 123}, { 74 - 42, 78 + 45}}, //3 idle 4	
+
+	{Dad_ArcMain_Left0, {  0,   0, 120, 135}, { 79, 135}}, //4 left 1
+	{Dad_ArcMain_Left0, {120,   0, 115, 133}, { 74, 133}}, //5 left 2
+	{Dad_ArcMain_Left1, {  0,   0, 113, 133}, { 75, 133}}, //4 left 1
+	{Dad_ArcMain_Left1, {113,   0, 113, 133}, { 75, 133}}, //5 left 2
 	
-	{Dad_ArcMain_Left0, {  0,   0, 120, 135}, { 0, 0}}, //4 left 1
-	{Dad_ArcMain_Left0, {120,   0, 115, 133}, { 0, 0}}, //5 left 2
-	{Dad_ArcMain_Left1, {  0,   0, 113, 133}, { 0, 0}}, //4 left 1
-	{Dad_ArcMain_Left1, {113,   0, 113, 133}, { 0, 0}}, //5 left 2
+	{Dad_ArcMain_Down0, {  0,   0, 144,  96}, { 18, 90}}, //6 down 1
+	{Dad_ArcMain_Down0, {  0,  96, 146, 100}, { 21, 98}}, //7 down 2
+	{Dad_ArcMain_Down1, {  0,   0, 146, 100}, { 20, 99}}, //6 down 1
+	{Dad_ArcMain_Down1, {  0, 100, 147, 101}, { 21, 100}}, //7 down 2
 	
-	{Dad_ArcMain_Down0, {  0,   0, 144, 96}, { 0, 0}}, //6 down 1
-	{Dad_ArcMain_Down0, {  0,  96, 146, 100}, { 0, 0}}, //7 down 2
-	{Dad_ArcMain_Down1, {  0,   0, 146, 100}, { 0, 0}}, //6 down 1
-	{Dad_ArcMain_Down1, {  0, 100, 147, 101}, { 0, 0}}, //7 down 2
+	{Dad_ArcMain_Up0, {  0,   0, 111, 146}, { 38, 146}}, //8 up 1
+	{Dad_ArcMain_Up0, {111,   0, 113, 142}, { 36, 142}}, //9 up 2
+	{Dad_ArcMain_Up1, {  0,   0, 115, 138}, { 36, 138}}, //8 up 1
+	{Dad_ArcMain_Up1, {115,   0, 115, 138}, { 36, 138}}, //9 up 2
 	
-	{Dad_ArcMain_Up0, {  0,   0, 111, 146}, { 0, 0}}, //8 up 1
-	{Dad_ArcMain_Up0, {111,   0, 113, 142}, { 0, 0}}, //9 up 2
-	{Dad_ArcMain_Up1, {  0,   0, 115, 138}, { 0, 0}}, //8 up 1
-	{Dad_ArcMain_Up1, {115,   0, 115, 138}, { 0, 0}}, //9 up 2
-	
-	{Dad_ArcMain_Right0, {  0,   0, 144, 113}, { 0, 0}}, //10 right 1
-	{Dad_ArcMain_Right0, {  0, 113, 140, 110}, { 0, 0}}, //11 right 2
-	{Dad_ArcMain_Right1, {  0,   0, 139, 109}, { 0, 0}}, //10 right 1
-	{Dad_ArcMain_Right1, {  0, 109, 139, 109}, { 0, 0}}, //11 right 2
+	{Dad_ArcMain_Right0, {  0,   0, 144, 113}, { 29, 113}}, //10 right 1
+	{Dad_ArcMain_Right0, {  0, 113, 140, 110}, { 28, 110}}, //11 right 2
+	{Dad_ArcMain_Right1, {  0,   0, 139, 109}, { 26, 109}}, //10 right 1
+	{Dad_ArcMain_Right1, {  0, 109, 139, 109}, { 26, 109}}, //11 right 2
 };
 
 static const Animation char_dad_anim[CharAnim_Max] = {

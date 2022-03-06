@@ -1579,7 +1579,6 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{
-
 			if (stage.middlescroll)
 				arrowposx = -78;
 			else

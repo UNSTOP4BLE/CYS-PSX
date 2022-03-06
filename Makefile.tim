@@ -33,4 +33,4 @@ iso/dad/main.arc: iso/dad/idle0.tim iso/dad/idle1.tim iso/dad/idle2.tim iso/dad/
 iso/gf/main.arc: iso/gf/gf0.tim iso/gf/gf1.tim iso/gf/gf2.tim
 
 # Week 1
-iso/week1/back.arc: iso/week1/back0.tim iso/week1/back1.tim iso/week1/back2.tim
+iso/week1/back.arc: iso/week1/back0.tim iso/week1/back1.tim iso/week1/grass0.tim iso/week1/grass1.tim iso/week1/build.tim 

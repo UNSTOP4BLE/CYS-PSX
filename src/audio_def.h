@@ -11,8 +11,8 @@ static const XA_TrackDef xa_tracks[] = {
 	{XA_Menu, XA_LENGTH(11295)}, //XA_GettinFreaky
 	{XA_Menu, XA_LENGTH(3840)},  //XA_GameOver
 	//WEEK1A.XA
-	{XA_Week1A, XA_LENGTH(7685)}, //XA_Bopeebo
-	{XA_Week1A, XA_LENGTH(8000)}, //XA_Fresh
+	{XA_Week1A, XA_LENGTH(18600)}, //XA_Bopeebo
+	{XA_Week1A, XA_LENGTH(18600)}, //XA_Fresh
 };
 
 static const char *xa_paths[] = {

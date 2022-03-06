@@ -79,30 +79,30 @@ typedef struct
 
 //Boyfriend player definitions
 static const CharFrame char_bf_frame[] = {
-	{BF_ArcMain_Idle, {  0,   0, 100,  115}, { 0,  0}}, //0 idle 1
-	{BF_ArcMain_Idle, {100,   0,  90,  120}, { 0,  0}}, //1 idle 1
-	{BF_ArcMain_Idle, {  0, 115,  83,  118}, { 0,  0}}, //2 idle 1
-	{BF_ArcMain_Idle, { 83, 120,  81,  122}, { 0,  0}}, //3 idle 1
+	{BF_ArcMain_Idle, {  0,   0, 100,  115}, { 66,  79 - 5}}, //0 idle 1
+	{BF_ArcMain_Idle, {100,   0,  90,  120}, { 65,  79 - 5}}, //1 idle 1
+	{BF_ArcMain_Idle, {  0, 115,  83,  118}, { 55,  78 - 5}}, //2 idle 1
+	{BF_ArcMain_Idle, { 83, 120,  81,  122}, { 56,  79 - 5}}, //3 idle 1
 	
-	{BF_ArcMain_Left, {  0,   0, 108,  115}, { 0,  0}}, //4 idle 1
-	{BF_ArcMain_Left, {108,   0, 107,  120}, { 0,  0}}, //5 idle 1
-	{BF_ArcMain_Left, {  0, 115,  97,  119}, { 0,  0}}, //6 idle 1
-	{BF_ArcMain_Left, { 97, 120, 102,  118}, { 0,  0}}, //7 idle 1
+	{BF_ArcMain_Left, {  0,   0, 108,  115}, { 65,  74}}, //4 idle 1
+	{BF_ArcMain_Left, {108,   0, 107,  120}, { 64,  74}}, //5 idle 1
+	{BF_ArcMain_Left, {  0, 115,  97,  119}, { 54,  73}}, //6 idle 1
+	{BF_ArcMain_Left, { 97, 120, 102,  118}, { 60,  74}}, //7 idle 1
 	
-	{BF_ArcMain_Down, {  0,   0, 121,  108}, { 0,  0}}, //8 idle 1
-	{BF_ArcMain_Down, {121,   0, 121,  115}, { 0,  0}}, //9 idle 1
-	{BF_ArcMain_Down, {  0, 108, 121,  114}, { 0,  0}}, //10 idle 1
-	{BF_ArcMain_Down, {121, 115, 122,  119}, { 0,  0}}, //11 idle 1
+	{BF_ArcMain_Down, {  0,   0, 121,  108}, { 76,  69}}, //8 idle 1
+	{BF_ArcMain_Down, {121,   0, 121,  115}, { 76,  69}}, //9 idle 1
+	{BF_ArcMain_Down, {  0, 108, 121,  114}, { 77,  69}}, //10 idle 1
+	{BF_ArcMain_Down, {121, 115, 122,  119}, { 78,  71}}, //11 idle 1
 	
-	{BF_ArcMain_Up, {  0,   0, 106,  114}, { 0,  0}}, //12 idle 1
-	{BF_ArcMain_Up, {106,   0,  96,  120}, { 0,  0}}, //13 idle 1
-	{BF_ArcMain_Up, {  0, 114,  98,  120}, { 0,  0}}, //14 idle 1
-	{BF_ArcMain_Up, { 98, 120,  94,  123}, { 0,  0}}, //15 idle 1
+	{BF_ArcMain_Up, {  0,   0, 106,  114}, { 70,  72}}, //12 idle 1
+	{BF_ArcMain_Up, {106,   0,  96,  120}, { 70,  73}}, //13 idle 1
+	{BF_ArcMain_Up, {  0, 114,  98,  120}, { 69,  74}}, //14 idle 1
+	{BF_ArcMain_Up, { 98, 120,  94,  123}, { 70,  74}}, //15 idle 1
 	
-	{BF_ArcMain_Right, {  0,   0, 110,  113}, { 0,  0}}, //16 idle 1
-	{BF_ArcMain_Right, {110,   0, 103,  119}, { 0,  0}}, //17 idle 1
-	{BF_ArcMain_Right, {  0, 113, 103,  118}, { 0,  0}}, //18 idle 1
-	{BF_ArcMain_Right, {103, 119, 102,  121}, { 0,  0}}, //19 idle 1
+	{BF_ArcMain_Right, {  0,   0, 110,  113}, { 77,  72}}, //16 idle 1
+	{BF_ArcMain_Right, {110,   0, 103,  119}, { 77,  73}}, //17 idle 1
+	{BF_ArcMain_Right, {  0, 113, 103,  118}, { 76,  73}}, //18 idle 1
+	{BF_ArcMain_Right, {103, 119, 102,  121}, { 76,  73}}, //19 idle 1
 
 	{BF_ArcMain_Dead0, {  0,   0, 128, 128}, { 53,  98}}, //23 dead0 0
 	{BF_ArcMain_Dead0, {128,   0, 128, 128}, { 53,  98}}, //24 dead0 1

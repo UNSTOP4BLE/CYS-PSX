@@ -93,11 +93,11 @@ static const Animation char_dad_anim[CharAnim_Max] = {
 
 static const Animation char_dad_anim2[CharAnim_Max] = {
 	{2, (const u8[]){ 0, 1, 2, 3, 4, 5, ASCR_BACK, 0}}, //CharAnim_Idle
-	{2, (const u8[]){ 6,  7, 8, 9, ASCR_BACK, 0}},         //CharAnim_Left
+	{2, (const u8[]){ 6, 7, 8, 9, ASCR_BACK, 0}},         //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_LeftAlt
-	{2, (const u8[]){ 10,  11, 12, 13, ASCR_BACK, 0}},         //CharAnim_Down
+	{2, (const u8[]){ 10, 11, 12, 13, ASCR_BACK, 0}},         //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_DownAlt
-	{2, (const u8[]){ 22,  23, 24, 25, 25, 25, 25, ASCR_BACK, 0}},         //CharAnim_Up
+	{2, (const u8[]){ 22, 23, 24, 25, ASCR_BACK, 0}},         //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_UpAlt
 	{2, (const u8[]){ 18, 19, 20, 21, ASCR_BACK, 0}},         //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_RightAlt
@@ -127,14 +127,21 @@ void Char_Dad_Tick(Character *character)
 		Character_PerformIdle(character);
 	
 	//Animate and draw
-	if (stage.song_step >= 224 && stage.song_step <= 253)
+	if (stage.song_step >= 224 && stage.song_step <= 253) 
 		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
-	else if (stage.song_step >= 2015 && stage.song_step <= 2045)
+	
+	else if (stage.song_step >= 992 && stage.song_step <= 1020) 
 		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
-	else if (stage.song_step >= 2559 && stage.song_step <= 2588)
+	
+	else if (stage.song_step >= 2015 && stage.song_step <= 2045) 
 		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
-	else if (stage.song_step >= -2612 && stage.song_step <= -2579)
+	
+	else if (stage.song_step >= 2559 && stage.song_step <= 2588) 
 		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
+	
+	else if (stage.timercount >= 10722 && stage.timercount <= 10851) 
+		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
+	
 	else
 		Animatable_Animate(&character->animatable, (void*)this, Char_Dad_SetFrame);
 	
@@ -182,8 +189,8 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 	
 	this->character.health_i = 1;
 	
-	this->character.focus_x = FIXED_DEC(65,1);
-	this->character.focus_y = FIXED_DEC(-115,1);
+	this->character.focus_x = FIXED_DEC(-40 - -120,1);
+	this->character.focus_y = FIXED_DEC(-87 - -20,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art

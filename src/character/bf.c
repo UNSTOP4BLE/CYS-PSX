@@ -299,6 +299,7 @@ void Char_BF_Tick(Character *character)
 	}
 	
 	//Animate and draw character
+	//if (stage.timercount >= 7733)
 	Animatable_Animate(&character->animatable, (void*)this, Char_BF_SetFrame);
 	Character_Draw(character, &this->tex, &char_bf_frame[this->frame]);
 }
@@ -373,12 +374,12 @@ Character *Char_BF_New(fixed_t x, fixed_t y)
 	Character_Init((Character*)this, x, y);
 	
 	//Set character information
-	this->character.spec = CHAR_SPEC_MISSANIM;
-	
+
+	//if (stage.timercount >= 7733)
 	this->character.health_i = 0;
 	
-	this->character.focus_x = FIXED_DEC(-50,1);
-	this->character.focus_y = (stage.stage_id == StageId_1_4) ? FIXED_DEC(-85,1) : FIXED_DEC(-65,1);
+	this->character.focus_x = FIXED_DEC(29 - 120,1);
+	this->character.focus_y = FIXED_DEC(-74 - -30,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art

@@ -25,7 +25,7 @@
 //Stage constants
 //#define STAGE_NOHUD //Disable the HUD
 
-#define STAGE_FREECAM //Freecam
+//#define STAGE_FREECAM //Freecam
 
 //normal note x
 static const fixed_t note_x[8] = {
@@ -458,10 +458,6 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 	
 	if (!stage.ghost)
 	{
-		if (this->character->spec & CHAR_SPEC_MISSANIM)
-			this->character->set_anim(this->character, note_anims[type & 0x3][2]);
-		else
-			this->character->set_anim(this->character, note_anims[type & 0x3][0]);
 		Stage_MissNote(this);
 		
 		this->health -= 400;
@@ -713,7 +709,74 @@ void Stage_DrawTex(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t
 {
 	Stage_DrawTexCol(tex, src, dst, zoom, 0x80, 0x80, 0x80);
 }
-
+void Stage_BlendTex(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 mode)
+{
+	fixed_t xz = dst->x;
+	fixed_t yz = dst->y;
+	fixed_t wz = dst->w;
+	fixed_t hz = dst->h;
+	
+	if (stage.stage_id >= StageId_6_1 && stage.stage_id <= StageId_6_3)
+	{
+		//Handle HUD drawing
+		if (tex == &stage.tex_hud0)
+		{
+			#ifdef STAGE_NOHUD
+				return;
+			#endif
+			if (src->y >= 128 && src->y < 224)
+			{
+				//Pixel perfect scrolling
+				xz &= FIXED_UAND;
+				yz &= FIXED_UAND;
+				wz &= FIXED_UAND;
+				hz &= FIXED_UAND;
+			}
+		}
+		else if (tex == &stage.tex_hud1)
+		{
+			#ifdef STAGE_NOHUD
+				return;
+			#endif
+		}
+		else
+		{
+			//Pixel perfect scrolling
+			xz &= FIXED_UAND;
+			yz &= FIXED_UAND;
+			wz &= FIXED_UAND;
+			hz &= FIXED_UAND;
+		}
+	}
+	else
+	{
+		//Don't draw if HUD and is disabled
+		if (tex == &stage.tex_hud0 || tex == &stage.tex_hud1)
+		{
+			#ifdef STAGE_NOHUD
+				return;
+			#endif
+		}
+	}
+	
+	fixed_t l = (SCREEN_WIDTH2  << FIXED_SHIFT) + FIXED_MUL(xz, zoom);// + FIXED_DEC(1,2);
+	fixed_t t = (SCREEN_HEIGHT2 << FIXED_SHIFT) + FIXED_MUL(yz, zoom);// + FIXED_DEC(1,2);
+	fixed_t r = l + FIXED_MUL(wz, zoom);
+	fixed_t b = t + FIXED_MUL(hz, zoom);
+	
+	l >>= FIXED_SHIFT;
+	t >>= FIXED_SHIFT;
+	r >>= FIXED_SHIFT;
+	b >>= FIXED_SHIFT;
+	
+	RECT sdst = {
+		l,
+		t,
+		r - l,
+		b - t,
+	};
+	Gfx_BlendTex(tex, src, &sdst, mode);
+}
 void Stage_DrawTexArb(Gfx_Tex *tex, const RECT *src, const POINT_FIXED *p0, const POINT_FIXED *p1, const POINT_FIXED *p2, const POINT_FIXED *p3, fixed_t zoom)
 {
 	//Don't draw if HUD and HUD is disabled
@@ -1029,7 +1092,7 @@ static void Stage_DrawNotes(void)
 				if (stage.downscroll)
 					note_dst.y = -note_dst.y - note_dst.h;
 				//todo
-				Gfx_BlendTex(&stage.tex_hud0, &note_src, &note_dst, 0);
+				Stage_BlendTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump, 1);
 			}
 			
 			else if (note->type & NOTE_FLAG_MINE)
@@ -1293,7 +1356,7 @@ static void Stage_LoadState(void)
 		
 		stage.player_state[i].health = 10000;
 		stage.player_state[i].combo = 0;
-		
+		stage.timercount = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
 		strcpy(stage.player_state[i].score_text, "0");
@@ -1579,7 +1642,8 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{
-			FntPrint("%d", stage.song_step);
+			stage.timercount ++;
+			FntPrint("%d %d", stage.song_step, stage.timercount);
 			
 			if (stage.middlescroll)
 				arrowposx = -78;

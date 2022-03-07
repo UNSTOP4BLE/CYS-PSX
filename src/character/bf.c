@@ -122,13 +122,13 @@ static const CharFrame char_bf_frame[] = {
 
 static const Animation char_bf_anim[PlayerAnim_Max] = {
 	{2, (const u8[]){ 0,  1,  2,  3, ASCR_CHGANI, CharAnim_Idle}}, //CharAnim_Idle
-	{2, (const u8[]){ 4,  5, 6, 7, ASCR_BACK, 0}},             //CharAnim_Left
+	{1, (const u8[]){ 4,  5, 6, 7, ASCR_BACK, 3}},             //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_LeftAlt
-	{2, (const u8[]){ 8, 9, 10, 11, ASCR_BACK, 0}},             //CharAnim_Down
+	{1, (const u8[]){ 8, 9, 10, 11, ASCR_BACK, 3}},             //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_DownAlt
-	{2, (const u8[]){ 12, 13, 14, 15, ASCR_BACK, 0}},             //CharAnim_Up
+	{1, (const u8[]){ 12, 13, 14, 15, ASCR_BACK, 3}},             //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_UpAlt
-	{2, (const u8[]){ 16, 17, 18, 19, ASCR_BACK, 0}},             //CharAnim_Right
+	{1, (const u8[]){ 16, 17, 18, 19, ASCR_BACK, 3}},             //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt

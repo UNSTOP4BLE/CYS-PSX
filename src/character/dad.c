@@ -25,6 +25,8 @@ enum
 	Dad_ArcMain_Up1,
 	Dad_ArcMain_Right0,
 	Dad_ArcMain_Right1,
+	Dad_ArcMain_Spec0,
+	Dad_ArcMain_Spec1,
 	
 	Dad_Arc_Max,
 };
@@ -70,6 +72,11 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Right0, {  0, 113, 140, 110}, { 28, 110}}, //11 right 2
 	{Dad_ArcMain_Right1, {  0,   0, 139, 109}, { 26, 109}}, //10 right 1
 	{Dad_ArcMain_Right1, {  0, 109, 139, 109}, { 26, 109}}, //11 right 2
+
+	{Dad_ArcMain_Spec0, {  0,   0,  98, 152}, { 71, 152}}, //10 right 1
+	{Dad_ArcMain_Spec0, { 98,   0,  99, 143}, { 69, 143}}, //11 right 2
+	{Dad_ArcMain_Spec1, {  0,   0,  99, 139}, { 68, 139}}, //10 right 1
+	{Dad_ArcMain_Spec1, { 99,   0,  99, 139}, { 68, 139}}, //11 right 2
 };
 
 static const Animation char_dad_anim[CharAnim_Max] = {
@@ -79,6 +86,18 @@ static const Animation char_dad_anim[CharAnim_Max] = {
 	{2, (const u8[]){ 10,  11, 12, 13, ASCR_BACK, 0}},         //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_DownAlt
 	{2, (const u8[]){ 14,  15, 16, 17, ASCR_BACK, 0}},         //CharAnim_Up
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_UpAlt
+	{2, (const u8[]){ 18, 19, 20, 21, ASCR_BACK, 0}},         //CharAnim_Right
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_RightAlt
+};
+
+static const Animation char_dad_anim2[CharAnim_Max] = {
+	{2, (const u8[]){ 0, 1, 2, 3, 4, 5, ASCR_BACK, 0}}, //CharAnim_Idle
+	{2, (const u8[]){ 6,  7, 8, 9, ASCR_BACK, 0}},         //CharAnim_Left
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_LeftAlt
+	{2, (const u8[]){ 10,  11, 12, 13, ASCR_BACK, 0}},         //CharAnim_Down
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_DownAlt
+	{2, (const u8[]){ 22,  23, 24, 25, 25, 25, 25, ASCR_BACK, 0}},         //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_UpAlt
 	{2, (const u8[]){ 18, 19, 20, 21, ASCR_BACK, 0}},         //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_RightAlt
@@ -108,7 +127,17 @@ void Char_Dad_Tick(Character *character)
 		Character_PerformIdle(character);
 	
 	//Animate and draw
-	Animatable_Animate(&character->animatable, (void*)this, Char_Dad_SetFrame);
+	if (stage.song_step >= 224 && stage.song_step <= 253)
+		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
+	else if (stage.song_step >= 2015 && stage.song_step <= 2045)
+		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
+	else if (stage.song_step >= 2559 && stage.song_step <= 2588)
+		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
+	else if (stage.song_step >= -2612 && stage.song_step <= -2579)
+		Animatable_Animate(&character->animatable2, (void*)this, Char_Dad_SetFrame);
+	else
+		Animatable_Animate(&character->animatable, (void*)this, Char_Dad_SetFrame);
+	
 	Character_Draw(character, &this->tex, &char_dad_frame[this->frame]);
 }
 
@@ -116,6 +145,7 @@ void Char_Dad_SetAnim(Character *character, u8 anim)
 {
 	//Set animation
 	Animatable_SetAnim(&character->animatable, anim);
+	Animatable_SetAnim(&character->animatable2, anim);
 	Character_CheckStartSing(character);
 }
 
@@ -144,6 +174,7 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 	this->character.free = Char_Dad_Free;
 	
 	Animatable_Init(&this->character.animatable, char_dad_anim);
+	Animatable_Init(&this->character.animatable2, char_dad_anim2);
 	Character_Init((Character*)this, x, y);
 	
 	//Set character information
@@ -170,6 +201,8 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 		"up1.tim",    //Dad_ArcMain_Up
 		"right0.tim", //Dad_ArcMain_Right
 		"right1.tim", //Dad_ArcMain_Right
+		"spec0.tim", //Dad_ArcMain_Right
+		"spec1.tim", //Dad_ArcMain_Right
 		NULL
 	};
 	IO_Data *arc_ptr = this->arc_ptr;

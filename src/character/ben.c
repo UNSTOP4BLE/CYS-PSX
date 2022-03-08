@@ -44,32 +44,32 @@ typedef struct
 
 //ben character definitions
 static const CharFrame char_ben_frame[] = {
-	{ben_ArcMain_Idle0, {  0,   0, 142, 123}, { 74 - 42, 78 + 45}}, //0 idle 1
-	{ben_ArcMain_Idle1, {  0, 123, 141, 124}, { 73 - 42, 78 + 45}}, //1 idle 2
-	{ben_ArcMain_Idle2, {  0,   0, 141, 125}, { 73 - 42, 78 + 45}}, //2 idle 3
+	{ben_ArcMain_Idle0, {  0,   0, 161, 249}, { 161, 249}}, //0 idle 1
+	{ben_ArcMain_Idle1, {  0,   0, 159, 251}, { 159, 251}}, //1 idle 2
+	{ben_ArcMain_Idle2, {  0,   0, 157, 252}, { 157, 252}}, //2 idle 3
 
-	{ben_ArcMain_Left0, {  0,   0, 120, 135}, { 79, 135}}, //4 left 1
-	{ben_ArcMain_Left1, {113,   0, 113, 133}, { 75, 133}}, //5 left 2
+	{ben_ArcMain_Left0, {  0,   0, 161, 252}, { 161, 252}}, //4 left 1
+	{ben_ArcMain_Left1, {  0,   0, 157, 253}, { 157, 253}}, //5 left 2
 	
-	{ben_ArcMain_Down0, {  0,   0, 144,  96}, { 18, 90}}, //6 down 1
-	{ben_ArcMain_Down1, {  0, 100, 147, 101}, { 21, 100}}, //7 down 2
+	{ben_ArcMain_Down0, {  0,   0, 160, 248}, {160, 248}}, //6 down 1
+	{ben_ArcMain_Down1, {  0,   0, 157, 252}, {157, 252}}, //7 down 2
 	
-	{ben_ArcMain_Up0, {  0,   0, 111, 146}, { 38, 146}}, //8 up 1
-	{ben_ArcMain_Up1, {115,   0, 115, 138}, { 36, 138}}, //9 up 2
+	{ben_ArcMain_Up0, {  0,   0, 153, 255}, { 153, 255}}, //8 up 1
+	{ben_ArcMain_Up1, {  0,   0, 157, 253}, { 157, 253}}, //9 up 2
 	
-	{ben_ArcMain_Right0, {  0,   0, 144, 113}, { 29, 113}}, //10 right 1
-	{ben_ArcMain_Right1, {  0, 109, 139, 109}, { 26, 109}}, //11 right 2
+	{ben_ArcMain_Right0, {  0,   0, 161, 253}, { 156, 253}}, //10 right 1
+	{ben_ArcMain_Right1, {  0,   0, 156, 253}, { 156, 253}}, //11 right 2
 };
 
 static const Animation char_ben_anim[CharAnim_Max] = {
-	{2, (const u8[]){ 0, 1, 2, 3, 4, 5, ASCR_BACK, 0}}, //CharAnim_Idle
-	{2, (const u8[]){ 6,  7, 8, 9, ASCR_BACK, 0}},         //CharAnim_Left
+	{2, (const u8[]){ 0, 1, 2, ASCR_BACK, 0}}, //CharAnim_Idle
+	{2, (const u8[]){ 3,  4, ASCR_BACK, 0}},         //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_LeftAlt
-	{2, (const u8[]){ 10,  11, 12, 13, ASCR_BACK, 0}},         //CharAnim_Down
+	{2, (const u8[]){ 5,  6, ASCR_BACK, 0}},         //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_DownAlt
-	{2, (const u8[]){ 14,  15, 16, 17, ASCR_BACK, 0}},         //CharAnim_Up
+	{2, (const u8[]){ 7,  8, ASCR_BACK, 0}},         //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_UpAlt
-	{2, (const u8[]){ 18, 19, 20, 21, ASCR_BACK, 0}},         //CharAnim_Right
+	{2, (const u8[]){ 9, 10, ASCR_BACK, 0}},         //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_RightAlt
 };
 
@@ -145,7 +145,7 @@ Character *Char_ben_New(fixed_t x, fixed_t y)
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art
-	this->arc_main = IO_Read("\\CHAR\\SPEED.ARC;1");
+	this->arc_main = IO_Read("\\CHAR\\BEN.ARC;1");
 	
 	const char **pathp = (const char *[]){
 		"idle0.tim", //ben_ArcMain_Idle0

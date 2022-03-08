@@ -53,7 +53,11 @@
 				<file name = "1.2e.cht" type = "data" source = "iso/chart/ben.json.cht"/>
 				<file name = "1.2n.cht" type = "data" source = "iso/chart/ben.json.cht"/>
 				<file name = "1.2h.cht" type = "data" source = "iso/chart/ben.json.cht"/>
-		
+
+				<!-- Fresh charts -->
+				<file name = "1.3e.cht" type = "data" source = "iso/chart/ben-old.json.cht"/>
+				<file name = "1.3n.cht" type = "data" source = "iso/chart/ben-old.json.cht"/>
+				<file name = "1.3h.cht" type = "data" source = "iso/chart/ben-old.json.cht"/>
 			</dir>
 		
 			<!-- Character assets -->
@@ -64,7 +68,7 @@
 				
 				<!-- speed assets -->
 				<file name = "speed.arc" type = "data" source = "iso/speed/main.arc"/>
-				<file name = "speeddead.arc" type = "data" source = "iso/speed/dead.arc"/>
+				<file name = "spedead.arc" type = "data" source = "iso/speed/dead.arc"/>
 				
 				<!-- Dad assets -->
 				<file name = "dad.arc" type = "data" source = "iso/dad/main.arc"/>
@@ -83,6 +87,8 @@
 				<file name = "menu.xa" type = "xa" source = "iso/music/menu.xa"/>
 				<dummy sectors="128"/>
 				<file name = "week1a.xa" type = "xa" source = "iso/music/week1a.xa"/>
+				<dummy sectors="128"/>
+				<file name = "week1b.xa" type = "xa" source = "iso/music/week1b.xa"/>
 				<dummy sectors="128"/>
 			</dir>
 			

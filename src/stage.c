@@ -76,6 +76,7 @@ int arrowposx,middleswitch;
 #include "character/gf.h"
 
 #include "stage/week1.h"
+#include "stage/week2.h"
 
 static const StageDef stage_defs[StageId_Max] = {
 	#include "stagedef_disc1.h"
@@ -413,7 +414,8 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 			
 			//Hit the mine
 			note->type |= NOTE_FLAG_HIT;
-	
+
+
 				this->health += 230;
 			if (this->character->spec & CHAR_SPEC_MISSANIM)
 				this->character->set_anim(this->character, note_anims[type & 0x3][2]);
@@ -499,7 +501,6 @@ static void Stage_SustainCheck(PlayerState *this, u8 type)
 		note->type |= NOTE_FLAG_HIT;
 		
 		this->character->set_anim(this->character, note_anims[type & 0x3][(note->type & NOTE_FLAG_ALT_ANIM) != 0]);
-		
 		Stage_StartVocal();
 		this->health += 230;
 		this->arrow_hitan[type & 0x3] = stage.step_time;
@@ -1905,6 +1906,9 @@ void Stage_Tick(void)
 						{
 							//Opponent hits note
 							Stage_StartVocal();
+							if ((stage.player_state[0].health >= 110))
+								stage.player_state[0].health -= 100;
+
 							if (note->type & NOTE_FLAG_SUSTAIN)
 								opponent_snote = note_anims[note->type & 0x3][(note->type & NOTE_FLAG_ALT_ANIM) != 0];
 							else

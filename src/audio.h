@@ -14,6 +14,7 @@ typedef enum
 {
 	XA_Menu,   //MENU.XA
 	XA_Week1A, //WEEK1A.XA
+	XA_Week1B, //WEEK1A.XA
 	
 	XA_Max,
 } XA_File;
@@ -26,6 +27,8 @@ typedef enum
 	//WEEK1A.XA
 	XA_Bopeebo, //Bopeebo
 	XA_Fresh,   //Fresh
+	//WEEK1B.XA
+	XA_Dadbattle,   //Fresh
 	
 	XA_TrackMax,
 } XA_Track;

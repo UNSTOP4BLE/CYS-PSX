@@ -78,23 +78,23 @@ typedef struct
 
 //Boyfriend player definitions
 static const CharFrame char_speed_frame[] = {
-	{speed_ArcMain_Hit0, {  0,   0, 100,  115}, { 66,  79}}, //0 idle 1
-	{speed_ArcMain_Hit0, {100,   0,  90,  120}, { 65,  79}}, //1 idle 1
-	{speed_ArcMain_Hit1, {  0, 115,  83,  118}, { 55,  78}}, //2 idle 1
-	{speed_ArcMain_Hit1, { 83, 120,  81,  122}, { 56,  79}}, //3 idle 1
-	{speed_ArcMain_Hit1, { 83, 120,  81,  122}, { 56,  79}}, //3 idle 1
+	{speed_ArcMain_Hit0, {  0, 118, 128,  115}, {128,  115}}, //0 idle 1
+	{speed_ArcMain_Hit0, {128, 118, 125,  116}, {125,  116}}, //1 idle 1
+	{speed_ArcMain_Hit1, {  0,   0, 123,  117}, {123,  117}}, //2 idle 1
+	{speed_ArcMain_Hit1, {123,   1, 120,  117}, {120,  117}}, //3 idle 1
+	{speed_ArcMain_Hit1, {  0, 118, 121,  119}, {120,  119}}, //3 idle 1
 	
-	{speed_ArcMain_Hit0, {  0,   0, 108,  115}, { 65,  74}}, //4 idle 1 l
-	{speed_ArcMain_Hit1, {108,   0, 107,  120}, { 64,  74}}, //5 idle 1 l
+	{speed_ArcMain_Hit1, {121, 118, 121,  119}, {121,  119}}, //4 idle 1 l
+	{speed_ArcMain_Hit2, {  0,   0, 119,  120}, {119,  120}}, //5 idle 1 l
 	
-	{speed_ArcMain_Hit0, {  0,   0, 121,  108}, { 76,  69}}, //8 idle 1 d
-	{speed_ArcMain_Hit0, {121,   0, 121,  115}, { 76,  69}}, //9 idle 1 d
+	{speed_ArcMain_Hit0, {  0,   0, 121,  118}, {121,  118}}, //8 idle 1 d
+	{speed_ArcMain_Hit0, {121,   0, 119,  118}, {119,  118}}, //9 idle 1 d
 	
-	{speed_ArcMain_Hit1, {  0,   0, 106,  114}, { 70,  72}}, //12 idle 1 u
-	{speed_ArcMain_Hit2, {106,   0,  96,  120}, { 70,  73}}, //13 idle 1 u
+	{speed_ArcMain_Hit2, {120, 120, 117,  120}, {117,  120}}, //12 idle 1 u
+	{speed_ArcMain_Hit3, {  0,   0, 119,  119}, {119,  119}}, //13 idle 1 u
 	
-	{speed_ArcMain_Hit1, {  0,   0, 110,  113}, { 77,  72}}, //16 idle 1 r
-	{speed_ArcMain_Hit1, {110,   0, 103,  119}, { 77,  73}}, //17 idle 1 r
+	{speed_ArcMain_Hit2, {119,   0, 122,  120}, {119,  120}}, //16 idle 1 r
+	{speed_ArcMain_Hit2, {  0, 120, 120,  119}, {120,  119}}, //17 idle 1 r
 
 	{speed_ArcMain_Dead0, {  0,   0, 128, 128}, { 53,  98}}, //20 dead0 0
 	{speed_ArcMain_Dead0, {128,   0, 128, 128}, { 53,  98}}, //21 dead0 1
@@ -113,14 +113,14 @@ static const CharFrame char_speed_frame[] = {
 };
 
 static const Animation char_speed_anim[PlayerAnim_Max] = {
-	{2, (const u8[]){ 0,  1,  2,  3, ASCR_CHGANI, CharAnim_Idle}}, //CharAnim_Idle
-	{1, (const u8[]){ 4,  5, 6, 7, ASCR_BACK, 3}},             //CharAnim_Left
+	{2, (const u8[]){ 0,  1,  2,  3, 4, ASCR_BACK, 0}}, //CharAnim_Idle
+	{2, (const u8[]){ 5,  6, ASCR_BACK, 0}},             //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_LeftAlt
-	{1, (const u8[]){ 8, 9, 10, 11, ASCR_BACK, 3}},             //CharAnim_Down
+	{2, (const u8[]){ 7, 8, ASCR_BACK, 0}},             //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_DownAlt
-	{1, (const u8[]){ 12, 13, 14, 15, ASCR_BACK, 3}},             //CharAnim_Up
+	{2, (const u8[]){ 9, 10, ASCR_BACK, 0}},             //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_UpAlt
-	{1, (const u8[]){ 16, 17, 18, 19, ASCR_BACK, 3}},             //CharAnim_Right
+	{2, (const u8[]){ 11, 12, ASCR_BACK, 0}},             //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
@@ -376,15 +376,13 @@ Character *Char_speed_New(fixed_t x, fixed_t y)
 	//Load art
 	this->arc_main = IO_Read("\\CHAR\\SPEED.ARC;1");
 	this->arc_dead = NULL;
-	IO_FindFile(&this->file_dead_arc, "\\CHAR\\SPEEDDEAD.ARC;1");
+	IO_FindFile(&this->file_dead_arc, "\\CHAR\\SPEDEAD.ARC;1");
 
 	const char **pathp = (const char *[]){
-		"idle.tim",   //speed_ArcMain_speed0
-		"left.tim",   //speed_ArcMain_speed1
-		"down.tim",   //speed_ArcMain_speed2
-		"up.tim",   //speed_ArcMain_speed3
-		"right.tim",   //speed_ArcMain_speed4
-		"idleb.tim",   //speed_ArcMain_speed0
+		"hit0.tim",   //speed_ArcMain_speed0
+		"hit1.tim",   //speed_ArcMain_speed0
+		"hit2.tim",   //speed_ArcMain_speed0
+		"hit3.tim",   //speed_ArcMain_speed0
 		"dead0.tim", //speed_ArcMain_Dead0
 		NULL
 	};

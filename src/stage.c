@@ -70,7 +70,9 @@ int arrowposx,middleswitch;
 
 //Stage definitions
 #include "character/bf.h"
+#include "character/speed.h"
 #include "character/dad.h"
+#include "character/ben.h"
 #include "character/gf.h"
 
 #include "stage/week1.h"
@@ -813,21 +815,21 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
 	//Check if we should use 'dying' frame
 	s8 dying;
 	if (ox < 0)
-		dying = (health >= 18000) * 24;
+		dying = (health >= 18000) * 50;
 	else
-		dying = (health <= 2000) * 24;
+		dying = (health <= 2000) * 50;
 	
 	//Get src and dst
 	fixed_t hx = (128 << FIXED_SHIFT) * (10000 - health) / 10000;
 	RECT src = {
-		(i % 5) * 48 + dying,
-		16 + (i / 5) * 24,
-		24,
-		24
+		(i % 2) * 50 + dying,
+		16 + (i / 2) * 50,
+		50,
+		50
 	};
 	RECT_FIXED dst = {
-		hx + ox * FIXED_DEC(11,1) - FIXED_DEC(12,1),
-		FIXED_DEC(SCREEN_HEIGHT2 - 32 + 4 - 12, 1),
+		hx + ox * FIXED_DEC(25,1) - FIXED_DEC(25,1),
+		FIXED_DEC(SCREEN_HEIGHT2 - 32 + 4 - 25, 1),
 		src.w << FIXED_SHIFT,
 		src.h << FIXED_SHIFT
 	};
@@ -1638,6 +1640,33 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{
+			//camera like sonic.exe
+    		if (stage.movecamera)
+			{
+				if (stage.cur_section->flag & SECTION_FLAG_OPPFOCUS)
+				{
+				if (stage.opponent->animatable.anim == CharAnim_Left || stage.opponent->animatable.anim == CharAnim_LeftAlt)
+					stage.camera.x -= FIXED_DEC(5,10);
+				if (stage.opponent->animatable.anim == CharAnim_Down || stage.opponent->animatable.anim == CharAnim_DownAlt)
+					stage.camera.y += FIXED_DEC(5,10);
+				if (stage.opponent->animatable.anim == CharAnim_Up || stage.opponent->animatable.anim == CharAnim_UpAlt)
+					stage.camera.y -= FIXED_DEC(5,10);
+				if (stage.opponent->animatable.anim == CharAnim_Right || stage.opponent->animatable.anim == CharAnim_RightAlt)
+					stage.camera.x += FIXED_DEC(5,10);
+				}
+				else
+				{
+				if (stage.player->animatable.anim == CharAnim_Left)
+					stage.camera.x -= FIXED_DEC(5,10);
+				if (stage.player->animatable.anim == CharAnim_Down)
+					stage.camera.y += FIXED_DEC(5,10);
+				if (stage.player->animatable.anim == CharAnim_Up)
+					stage.camera.y -= FIXED_DEC(5,10);
+				if (stage.player->animatable.anim == CharAnim_Right)
+					stage.camera.x += FIXED_DEC(5,10);
+				}
+			}
+			
 			stage.timercount ++;
 			FntPrint("%d %d", stage.song_step, stage.timercount);
 			

@@ -12,12 +12,12 @@
 		1, 1,
 		XA_Bopeebo, 0,
 		
-		StageId_1_2, STAGE_LOAD_FLAG
+		StageId_1_1, 0
 	},
 	{ //StageId_1_2 (Fresh)
 		//Characters
-		{Char_BF_New,    FIXED_DEC(60,1),  FIXED_DEC(100,1)},
-		{Char_Dad_New, FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
+		{Char_speed_New,    FIXED_DEC(60,1),  FIXED_DEC(100,1)},
+		{Char_ben_New, FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
 		{NULL,     FIXED_DEC(0,1),  FIXED_DEC(-10,1)},
 		
 		//Stage background

@@ -241,6 +241,7 @@ typedef struct
 	s16 timercount;
 
 	s16 botplay;
+	s16 movecamera;
 	
 	u8 gf_speed; //Typically 4 steps, changes in Fresh
 	

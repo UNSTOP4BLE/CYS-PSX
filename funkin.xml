@@ -62,8 +62,15 @@
 				<file name = "bf.arc" type = "data" source = "iso/bf/main.arc"/>
 				<file name = "bfdead.arc" type = "data" source = "iso/bf/dead.arc"/>
 				
+				<!-- speed assets -->
+				<file name = "speed.arc" type = "data" source = "iso/speed/main.arc"/>
+				<file name = "speeddead.arc" type = "data" source = "iso/speed/dead.arc"/>
+				
 				<!-- Dad assets -->
 				<file name = "dad.arc" type = "data" source = "iso/dad/main.arc"/>
+				
+				<!-- Dad assets -->
+				<file name = "ben.arc" type = "data" source = "iso/ben/main.arc"/>
 				
 				<!-- Girlfriend assets -->
 				<file name = "gf.arc" type = "data" source = "iso/gf/main.arc"/>

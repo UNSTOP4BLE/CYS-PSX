@@ -65,10 +65,11 @@ static const u8 note_anims[4][3] = {
 	{CharAnim_Right, CharAnim_RightAlt, PlayerAnim_RightMiss},
 };
 
-//middlescroll
-int arrowposx,middleswitch;
-
 //Stage definitions
+int arrowposx,middleswitch;
+int drain = 0;
+int iconposy = 0;
+
 #include "character/bf.h"
 #include "character/speed.h"
 #include "character/dad.h"
@@ -84,8 +85,6 @@ static const StageDef stage_defs[StageId_Max] = {
 
 //Stage state
 Stage stage;
-
-int drain = 0;
 
 //Stage music functions
 static void Stage_StartVocal(void)
@@ -119,6 +118,8 @@ static void Stage_FocusCharacter(Character *ch, fixed_t div)
 static void Stage_ScrollCamera(void)
 {
 	#ifdef STAGE_FREECAM
+		FntPrint("x%d y%d", stage.camera.x, stage.camera.y);
+
 		if (pad_state.held & PAD_LEFT)
 			stage.camera.x -= FIXED_DEC(2,1);
 		if (pad_state.held & PAD_UP)
@@ -823,7 +824,7 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
 	//Get src and dst
 	fixed_t hx = (128 << FIXED_SHIFT) * (10000 - health) / 10000;
 	RECT src = {
-		(i % 2) * 50 + dying,
+		(i % 2) * 100 + dying,
 		16 + (i / 2) * 50,
 		50,
 		50
@@ -1641,8 +1642,12 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{
+			if ((stage.stage_id == StageId_1_2) || (stage.stage_id == StageId_1_3))
+				iconposy = 239;
+			else
+				iconposy = 0;
 			//camera like sonic.exe
-    		if (stage.movecamera)
+    		if ((stage.movecamera && stage.stage_id != StageId_1_2) || (stage.movecamera && stage.stage_id != StageId_1_3))
 			{
 				if (stage.cur_section->flag & SECTION_FLAG_OPPFOCUS)
 				{
@@ -1669,7 +1674,6 @@ void Stage_Tick(void)
 			}
 			
 			stage.timercount ++;
-			FntPrint("%d %d", stage.song_step, stage.timercount);
 			
 			if (stage.middlescroll)
 				arrowposx = -78;
@@ -2046,8 +2050,8 @@ void Stage_Tick(void)
 				Stage_DrawHealth(stage.player_state[0].health, stage.opponent->health_i, -1);
 				
 				//Draw health bar
-				RECT health_fill = {0, 0, 256 - (256 * stage.player_state[0].health / 20000), 8};
-				RECT health_back = {0, 8, 256, 8};
+				RECT health_fill = {0, iconposy, 256 - (256 * stage.player_state[0].health / 20000), 8};
+				RECT health_back = {0, iconposy + 8, 256, 8};
 				RECT_FIXED health_dst = {FIXED_DEC(-128,1), (SCREEN_HEIGHT2 - 32) << FIXED_SHIFT, 0, FIXED_DEC(8,1)};
 				if (stage.downscroll)
 					health_dst.y = -health_dst.y - health_dst.h;

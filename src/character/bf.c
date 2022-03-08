@@ -332,8 +332,6 @@ void Char_BF_Tick(Character *character)
 	
 	if (stage.timercount >= 7733)
 		this->character.health_i = 1;
-	else
-		this->character.health_i = 0;
 	//Animate and draw character
 	if (stage.timercount >= 7733)
 		Animatable_Animate(&character->animatable2, (void*)this, Char_BF_SetFrame);
@@ -417,6 +415,8 @@ Character *Char_BF_New(fixed_t x, fixed_t y)
 	//Set character information
 	this->character.spec = 0;
 
+	this->character.health_i = 0;
+	
 	this->character.focus_x = FIXED_DEC(29 - 120,1);
 	this->character.focus_y = FIXED_DEC(-74 - -30,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);

@@ -128,15 +128,15 @@ static const Animation char_speed_anim[PlayerAnim_Max] = {
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 
-	{5, (const u8[]){20, 21, 22, 23, 23, 23, 23, 23, 23, 23, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
-	{5, (const u8[]){23, ASCR_REPEAT}},                                                       //PlayerAnim_Dead1
-	{3, (const u8[]){24, 25, 26, 27, 27, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
-	{3, (const u8[]){27, ASCR_REPEAT}},                                                       //PlayerAnim_Dead3
-	{3, (const u8[]){28, 29, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead4
-	{3, (const u8[]){30, 31, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead5
+	{5, (const u8[]){13, 14, 15, 16, 16, 16, 16, 16, 16, 16, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
+	{5, (const u8[]){16, ASCR_REPEAT}},                                                       //PlayerAnim_Dead1
+	{3, (const u8[]){17, 18, 19, 20, 20, 20, 20, 20, 20, 20, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
+	{3, (const u8[]){20, ASCR_REPEAT}},                                                       //PlayerAnim_Dead3
+	{3, (const u8[]){21, 22, 20, 20, 20, 20, 20, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead4
+	{3, (const u8[]){23, 24, 20, 20, 20, 20, 20, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead5
 	
-	{10, (const u8[]){30, 30, 30, ASCR_BACK, 1}}, //PlayerAnim_Dead4
-	{ 3, (const u8[]){33, 34, 30, ASCR_REPEAT}},  //PlayerAnim_Dead5
+	{10, (const u8[]){23, 23, 23, ASCR_BACK, 1}}, //PlayerAnim_Dead4
+	{ 3, (const u8[]){26, 27, 23, ASCR_REPEAT}},  //PlayerAnim_Dead5
 };
 //Boyfriend player functions
 void Char_speed_SetFrame(void *user, u8 frame)
@@ -367,10 +367,10 @@ Character *Char_speed_New(fixed_t x, fixed_t y)
 	//Set character information
 	this->character.spec = 0;
 
-	this->character.health_i = 0;
+	this->character.health_i = 3;
 
-	this->character.focus_x = FIXED_DEC(29 - 120,1);
-	this->character.focus_y = FIXED_DEC(-74 - -30,1);
+	this->character.focus_x = FIXED_DEC(-134 - -120,1);
+	this->character.focus_y = FIXED_DEC(12 - 100,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art

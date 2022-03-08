@@ -138,10 +138,10 @@ Character *Char_ben_New(fixed_t x, fixed_t y)
 	//Set character information
 	this->character.spec = 0;
 	
-	this->character.health_i = 2;
+	this->character.health_i = 4;
 	
-	this->character.focus_x = FIXED_DEC(-40 - -120,1);
-	this->character.focus_y = FIXED_DEC(-87 - -20,1);
+	this->character.focus_x = FIXED_DEC(-77 - 60,1);
+	this->character.focus_y = FIXED_DEC(-30 - 100,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art

@@ -40,20 +40,20 @@ typedef struct
 //mchar character definitions
 static const CharFrame char_mchar_frame[] = {
 	//normal sonic
-	{mchar_ArcMain_Idle0, {  0,   0, 183, 158}, { 0, 0}}, //0 idle 1
-	{mchar_ArcMain_Idle1, {  0,   0, 181, 162}, { 0, 0}}, //1 idle 2
-	{mchar_ArcMain_Idle2, {  0,   0, 180, 164}, { 0, 0}}, //2 idle 3
+	{mchar_ArcMain_Idle0, {  0,   0, 183, 158}, { 106, 158}}, //0 idle 1
+	{mchar_ArcMain_Idle1, {  0,   0, 181, 162}, { 105, 162}}, //1 idle 2
+	{mchar_ArcMain_Idle2, {  0,   0, 180, 164}, { 103, 164}}, //2 idle 3
 	//static
-	{mchar_ArcMain_Idle3, {  0,   0, 201, 201}, { 0, 0}}, //3 idle 1
+	{mchar_ArcMain_Idle3, {  0,   0, 201, 201}, { 100, 150}}, //3 idle 1
 	//exe sonic
-	{mchar_ArcMain_Idle4, {  0,   0, 190, 116}, { 0, 0}}, //4 idle 2
-	{mchar_ArcMain_Idle4, {  0, 116, 185, 119}, { 0, 0}}, //5 idle 2
-	{mchar_ArcMain_Idle5, {  0,   0, 184, 122}, { 0, 0}}, //6 idle 3
-	{mchar_ArcMain_Idle5, {  0, 122, 184, 122}, { 0, 0}}, //7 idle 3
+	{mchar_ArcMain_Idle4, {  0,   0, 190, 116}, { 123, 114}}, //4 idle 2
+	{mchar_ArcMain_Idle4, {  0, 116, 185, 119}, { 119, 117}}, //5 idle 2
+	{mchar_ArcMain_Idle5, {  0,   0, 184, 122}, { 116, 120}}, //6 idle 3
+	{mchar_ArcMain_Idle5, {  0, 122, 184, 122}, { 116, 120}}, //7 idle 3
 };
 
 static const Animation char_mchar_anim[CharAnim_Max] = {
-	{2, (const u8[]){ 0, 1, 2, 3, 4, 5, 6, 7, ASCR_BACK, 0}}, //CharAnim_Idle
+	{2, (const u8[]){ 3, 3, 0, 1, 2, 2, 2, 3, 3, 4, 5, 6, 7, ASCR_BACK, 0}}, //CharAnim_Idle
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},         //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_LeftAlt
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},         //CharAnim_Down

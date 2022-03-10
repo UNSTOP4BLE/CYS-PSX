@@ -300,7 +300,7 @@ void Menu_Load(MenuPage page)
 	FontData_Load(&menu.font_bold, Font_Bold);
 	FontData_Load(&menu.font_arial, Font_Arial);
 	
-	menu.mchar = Char_mchar_New(FIXED_DEC(62,1), FIXED_DEC(-12,1));
+	menu.mchar = Char_mchar_New(FIXED_DEC(82,1), FIXED_DEC(100,1));
 	stage.camera.x = stage.camera.y = FIXED_DEC(0,1);
 	stage.camera.bzoom = FIXED_UNIT;
 	stage.gf_speed = 4;

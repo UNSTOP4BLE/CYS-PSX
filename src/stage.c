@@ -937,7 +937,7 @@ static void Stage_DrawNotes(void)
 			{
 				if (stage.mode < StageMode_Net1 || i == ((stage.mode == StageMode_Net1) ? 0 : 1))
 				{ 
-					this->health -= 2000;
+					//this->health -= 2000;
 					Stage_CutVocal();
 					Stage_MissNote(this);
 			   
@@ -1910,7 +1910,8 @@ void Stage_Tick(void)
 						{
 							//Opponent hits note
 							Stage_StartVocal();
-							if ((stage.player_state[0].health >= 110))
+							//drain
+							if (stage.player_state[0].health >= 2000 && stage.drain)
 								stage.player_state[0].health -= 100;
 
 							if (note->type & NOTE_FLAG_SUSTAIN)

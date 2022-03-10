@@ -53,6 +53,7 @@ int main(int argc, char **argv)
 	//botplay
 	stage.botplay = 1;
 	stage.movecamera = 1;
+	stage.drain = 1;
 
 	//Remember arguments
 	my_argc = argc;

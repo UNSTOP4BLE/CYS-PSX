@@ -76,6 +76,9 @@
 				<!-- Dad assets -->
 				<file name = "ben.arc" type = "data" source = "iso/ben/main.arc"/>
 				
+				<!-- Dad assets -->
+				<file name = "mchar.arc" type = "data" source = "iso/mchar/main.arc"/>
+				
 				<!-- Girlfriend assets -->
 				<file name = "gf.arc" type = "data" source = "iso/gf/main.arc"/>
 				<file name = "speaker.tim" type = "data" source = "iso/gf/speaker.tim"/>

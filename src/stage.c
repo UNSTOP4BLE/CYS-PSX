@@ -74,6 +74,7 @@ int iconposy = 0;
 #include "character/speed.h"
 #include "character/dad.h"
 #include "character/ben.h"
+#include "character/mchar.h"
 #include "character/gf.h"
 
 #include "stage/week1.h"

@@ -54,13 +54,13 @@ static const CharFrame char_mchar_frame[] = {
 
 static const Animation char_mchar_anim[CharAnim_Max] = {
 	{2, (const u8[]){ 0, 1, 2, 3, 4, 5, 6, 7, ASCR_BACK, 0}}, //CharAnim_Idle
-	{2, (const u8[]){ 3,  4, ASCR_BACK, 0}},         //CharAnim_Left
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},         //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_LeftAlt
-	{2, (const u8[]){ 5,  6, ASCR_BACK, 0}},         //CharAnim_Down
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},         //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_DownAlt
-	{2, (const u8[]){ 7,  8, ASCR_BACK, 0}},         //CharAnim_Up
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},         //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_UpAlt
-	{2, (const u8[]){ 9, 10, ASCR_BACK, 0}},         //CharAnim_Right
+	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},         //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_RightAlt
 };
 
@@ -136,7 +136,7 @@ Character *Char_mchar_New(fixed_t x, fixed_t y)
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art
-	this->arc_main = IO_Read("\\CHAR\\mchar.ARC;1");
+	this->arc_main = IO_Read("\\CHAR\\MCHAR.ARC;1");
 	
 	const char **pathp = (const char *[]){
 		"idle0.tim", //mchar_ArcMain_Idle0

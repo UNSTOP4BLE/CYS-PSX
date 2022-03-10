@@ -12,6 +12,7 @@ all: \
 	iso/speed/dead.arc \
 	iso/dad/main.arc \
 	iso/ben/main.arc \
+	iso/mchar/main.arc \
 	iso/gf/main.arc \
 	iso/gf/speaker.tim \
 	iso/week1/back.arc 
@@ -33,12 +34,14 @@ iso/bf/dead.arc: iso/bf/dead1.tim iso/bf/dead2.tim iso/bf/dead3.tim iso/bf/retry
 iso/speed/main.arc: iso/speed/hit0.tim iso/speed/hit1.tim iso/speed/hit2.tim iso/speed/hit3.tim iso/speed/dead0.tim
 iso/speed/dead.arc: iso/speed/dead1.tim iso/speed/dead2.tim iso/speed/retry.tim
 
-
 # Dad
 iso/dad/main.arc: iso/dad/idle0.tim iso/dad/idle1.tim iso/dad/idle2.tim iso/dad/left0.tim iso/dad/left1.tim iso/dad/down0.tim iso/dad/down1.tim iso/dad/up0.tim iso/dad/up1.tim iso/dad/right0.tim iso/dad/right1.tim iso/dad/spec0.tim iso/dad/spec1.tim
 
 # ben
 iso/ben/main.arc: iso/ben/idle0.tim iso/ben/idle1.tim iso/ben/idle2.tim iso/ben/left0.tim iso/ben/left1.tim iso/ben/down0.tim iso/ben/down1.tim iso/ben/up0.tim iso/ben/up1.tim iso/ben/right0.tim iso/ben/right1.tim 
+
+# mchar
+iso/mchar/main.arc: iso/mchar/idle0.tim iso/mchar/idle1.tim iso/mchar/idle2.tim iso/mchar/idle3.tim iso/mchar/idle4.tim iso/mchar/idle5.tim
 
 # GF
 iso/gf/main.arc: iso/gf/gf0.tim iso/gf/gf1.tim iso/gf/gf2.tim

@@ -24,6 +24,8 @@ typedef enum
 	//MENU.XA
 	XA_GettinFreaky, //Gettin' Freaky
 	XA_GameOver,     //Game Over
+	XA_GameOverS,    //Game Over Sonic ver
+	XA_GameReset,    //Game Reset
 	//WEEK1A.XA
 	XA_Bopeebo, //Bopeebo
 	XA_Fresh,   //Fresh

@@ -64,8 +64,7 @@
 			<dir name = "char">
 				<!-- Boyfriend assets -->
 				<file name = "bf.arc" type = "data" source = "iso/bf/main.arc"/>
-				<file name = "bfdead.arc" type = "data" source = "iso/bf/dead.arc"/>
-				
+	
 				<!-- speed assets -->
 				<file name = "speed.arc" type = "data" source = "iso/speed/main.arc"/>
 				<file name = "spedead.arc" type = "data" source = "iso/speed/dead.arc"/>

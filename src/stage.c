@@ -22,6 +22,8 @@
 #include "object/combo.h"
 #include "object/splash.h"
 
+fixed_t trans_time = 0;
+
 //Stage constants
 //#define STAGE_NOHUD //Disable the HUD
 
@@ -1550,20 +1552,24 @@ void Stage_Tick(void)
 	else
 	#endif
 	{
+
+		if (trans_time > 0 && (trans_time -= timer_dt / 2) <= 0)
+		      Trans_Start();
+
 		//Return to menu when start is pressed
-		if (pad_state.press & PAD_START && stage.state == StageState_Play)
+		if (pad_state.press & PAD_START)
 		{
-			stage.trans = StageTrans_Menu;
-			Trans_Start();
-		}
-		else if (pad_state.press & (PAD_START | PAD_CROSS) && stage.state != StageState_Play)
-		{
-			stage.trans = StageTrans_Reload;
-			Trans_Start();
-		}
-		else if (pad_state.press & PAD_CIRCLE && stage.state != StageState_Play)
-		{
-			stage.trans = StageTrans_Menu;
+			stage.trans = (stage.state == StageState_Play) ? StageTrans_Menu : StageTrans_Reload;
+
+            if (stage.stage_id == StageId_1_1 && stage.trans == StageTrans_Reload)
+			{
+			stage.player->set_anim(stage.player, PlayerAnim_Dead6);
+			Audio_PlayXA_Track(XA_GameReset, 0x40, 3, false);
+			}
+             if (stage.player->animatable.anim == PlayerAnim_Dead6) 
+             trans_time = FIXED_UNIT;
+
+			if ((stage.stage_id != StageId_1_1 && stage.trans == StageTrans_Reload) || (stage.trans == StageTrans_Menu))
 			Trans_Start();
 		}
 	}
@@ -2117,8 +2123,10 @@ void Stage_Tick(void)
 		}
 		case StageState_Dead: //Start BREAK animation and reading extra data from CD
 		{
-			//Stop music immediately
+			//start gameover Sonic music immediately
 			Audio_StopXA();
+			if (stage.stage_id == StageId_1_1)
+			Audio_PlayXA_Track(XA_GameOverS, 0x40, 2, false);
 			
 			//Unload stage data
 			Mem_Free(stage.chart_data);
@@ -2166,7 +2174,7 @@ void Stage_Tick(void)
 			stage.player->tick(stage.player);
 			
 			//Drop mic and change state if CD has finished reading and animation has ended
-			if (IO_IsReading() || stage.player->animatable.anim != PlayerAnim_Dead1)
+			if (stage.player->animatable.anim != PlayerAnim_Dead1)
 				break;
 			
 			stage.player->set_anim(stage.player, PlayerAnim_Dead2);
@@ -2184,6 +2192,7 @@ void Stage_Tick(void)
 			if (stage.player->animatable.anim == PlayerAnim_Dead3)
 			{
 				stage.state = StageState_DeadRetry;
+				if (stage.stage_id != StageId_1_1)
 				Audio_PlayXA_Track(XA_GameOver, 0x40, 1, true);
 			}
 			break;

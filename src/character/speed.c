@@ -42,17 +42,11 @@ enum
 	speed_ArcMain_Hit2,
 	speed_ArcMain_Hit3,
 	speed_ArcMain_Dead0, //BREAK
-	
-	speed_ArcMain_Max,
-};
-
-enum
-{
 	speed_ArcDead_Dead1, //Mic Drop
 	speed_ArcDead_Dead2, //Twitch
 	speed_ArcDead_Retry, //Retry prompt
 	
-	speed_ArcDead_Max,
+	speed_ArcMain_Max,
 };
 
 #define speed_Arc_Max speed_ArcMain_Max
@@ -63,8 +57,7 @@ typedef struct
 	Character character;
 	
 	//Render data and state
-	IO_Data arc_main, arc_dead;
-	CdlFILE file_dead_arc; //dead.arc file position
+	IO_Data arc_main;
 	IO_Data arc_ptr[speed_Arc_Max];
 	
 	Gfx_Tex tex, tex_retry;
@@ -303,29 +296,12 @@ void Char_speed_SetAnim(Character *character, u8 anim)
 	switch (anim)
 	{
 		case PlayerAnim_Dead0:
-			//Begin reading dead.arc and adjust focus
-			this->arc_dead = IO_AsyncReadFile(&this->file_dead_arc);
 			character->focus_x = FIXED_DEC(0,1);
 			character->focus_y = FIXED_DEC(-40,1);
 			character->focus_zoom = FIXED_DEC(125,100);
 			break;
 		case PlayerAnim_Dead2:
-			//Unload main.arc
-			Mem_Free(this->arc_main);
-			this->arc_main = this->arc_dead;
-			this->arc_dead = NULL;
-			
-			//Find dead.arc files
-			const char **pathp = (const char *[]){
-				"dead1.tim", //speed_ArcDead_Dead1
-				"dead2.tim", //speed_ArcDead_Dead2
-				"retry.tim", //speed_ArcDead_Retry
-				NULL
-			};
-			IO_Data *arc_ptr = this->arc_ptr;
-			for (; *pathp != NULL; pathp++)
-				*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
-			
+
 			//Load retry art
 			Gfx_LoadTex(&this->tex_retry, this->arc_ptr[speed_ArcDead_Retry], 0);
 			break;
@@ -342,7 +318,6 @@ void Char_speed_Free(Character *character)
 	
 	//Free art
 	Mem_Free(this->arc_main);
-	Mem_Free(this->arc_dead);
 }
 
 Character *Char_speed_New(fixed_t x, fixed_t y)
@@ -375,8 +350,6 @@ Character *Char_speed_New(fixed_t x, fixed_t y)
 	
 	//Load art
 	this->arc_main = IO_Read("\\CHAR\\SPEED.ARC;1");
-	this->arc_dead = NULL;
-	IO_FindFile(&this->file_dead_arc, "\\CHAR\\SPEDEAD.ARC;1");
 
 	const char **pathp = (const char *[]){
 		"hit0.tim",   //speed_ArcMain_speed0
@@ -384,6 +357,9 @@ Character *Char_speed_New(fixed_t x, fixed_t y)
 		"hit2.tim",   //speed_ArcMain_speed0
 		"hit3.tim",   //speed_ArcMain_speed0
 		"dead0.tim", //speed_ArcMain_Dead0
+		"dead1.tim", //speed_ArcDead_Dead1
+        "dead2.tim", //speed_ArcDead_Dead2 
+		"retry.tim", //speed_ArcDead_Retry
 		NULL
 	};
 	IO_Data *arc_ptr = this->arc_ptr;

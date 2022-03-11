@@ -44,17 +44,12 @@ enum
 	BF_ArcMain_Right,
 	BF_ArcMain_Idleb,
 	BF_ArcMain_Dead0, //BREAK
-	
-	BF_ArcMain_Max,
-};
-
-enum
-{
 	BF_ArcDead_Dead1, //Mic Drop
 	BF_ArcDead_Dead2, //Twitch
+	BF_ArcDead_Dead3, //Twitch
 	BF_ArcDead_Retry, //Retry prompt
 	
-	BF_ArcDead_Max,
+	BF_ArcMain_Max,
 };
 
 #define BF_Arc_Max BF_ArcMain_Max
@@ -65,8 +60,7 @@ typedef struct
 	Character character;
 	
 	//Render data and state
-	IO_Data arc_main, arc_dead;
-	CdlFILE file_dead_arc; //dead.arc file position
+	IO_Data arc_main;
 	IO_Data arc_ptr[BF_Arc_Max];
 	
 	Gfx_Tex tex, tex_retry;
@@ -105,22 +99,17 @@ static const CharFrame char_bf_frame[] = {
 	{BF_ArcMain_Right, {  0, 113, 103,  118}, { 76,  73}}, //18 idle 1
 	{BF_ArcMain_Right, {103, 119, 102,  121}, { 76,  73}}, //19 idle 1
 
-	{BF_ArcMain_Dead0, {  0,   0, 128, 128}, { 53,  98}}, //20 dead0 0
-	{BF_ArcMain_Dead0, {128,   0, 128, 128}, { 53,  98}}, //21 dead0 1
-	{BF_ArcMain_Dead0, {  0, 128, 128, 128}, { 53,  98}}, //22 dead0 2
-	{BF_ArcMain_Dead0, {128, 128, 128, 128}, { 53,  98}}, //23 dead0 3
-	
-	{BF_ArcDead_Dead1, {  0,   0, 128, 128}, { 53,  98}}, //24 dead1 0
-	{BF_ArcDead_Dead1, {128,   0, 128, 128}, { 53,  98}}, //25 dead1 1
-	{BF_ArcDead_Dead1, {  0, 128, 128, 128}, { 53,  98}}, //26 dead1 2
-	{BF_ArcDead_Dead1, {128, 128, 128, 128}, { 53,  98}}, //27 dead1 3
-	
-	{BF_ArcDead_Dead2, {  0,   0, 128, 128}, { 53,  98}}, //8 dead2 body twitch 0
-	{BF_ArcDead_Dead2, {128,   0, 128, 128}, { 53,  98}}, //9 dead2 body twitch 1
-	{BF_ArcDead_Dead2, {  0, 128, 128, 128}, { 53,  98}}, //30 dead2 balls twitch 0
-	{BF_ArcDead_Dead2, {128, 128, 128, 128}, { 53,  98}}, //31 dead2 balls twitch 1
+	{BF_ArcMain_Dead0, {  0,   0, 181, 140}, { 63,  94}}, //21 dead0 0
+	{BF_ArcDead_Dead1, {  0,   0, 182, 138}, { 64,  93}}, //22 dead1 1
+	{BF_ArcDead_Dead2, {  0,   0, 183, 137}, { 65,  91}}, //23 dead1 1
+	{BF_ArcDead_Dead3, {  0,   0, 184, 137}, { 65,  92}}, //24 dead1 1
+	{BF_ArcDead_Dead3, {184,   0,  42,  21}, { 57, 111}}, //25 dead1 1
+	{BF_ArcDead_Dead3, {184,  21,  44,  23}, { 57, 111}},  //26 dead1 1
+	{BF_ArcDead_Dead3, {184,  44,  48,  26}, { 57, 111}},  //27 dead1 1
+	{BF_ArcDead_Dead3, {184,  70,  49,  27}, { 57, 111}},  //28 dead1 1
+	{BF_ArcDead_Dead3, {184,  97,  47,  26}, { 57, 111}},  //29 dead1 1
 
-	{BF_ArcMain_Idleb, {  0,   0, 105,  101}, { 75,  68}}, //32 idle 1
+	{BF_ArcMain_Idleb, {  0,   0, 105,  101}, { 75,  68}}, //30 idle 1
 	{BF_ArcMain_Idleb, {105,   0, 102,  100}, { 71,  68}}, // idle 1
 	{BF_ArcMain_Idleb, {  0, 101, 104,   98}, { 72,  68}}, //2 idle 1
 	{BF_ArcMain_Idleb, {104, 100, 104,   99}, { 72,  68}}, //3 idle 1
@@ -142,15 +131,15 @@ static const Animation char_bf_anim[PlayerAnim_Max] = {
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 
-	{5, (const u8[]){20, 21, 22, 23, 23, 23, 23, 23, 23, 23, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
-	{5, (const u8[]){23, ASCR_REPEAT}},                                                       //PlayerAnim_Dead1
-	{3, (const u8[]){24, 25, 26, 27, 27, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
-	{3, (const u8[]){27, ASCR_REPEAT}},                                                       //PlayerAnim_Dead3
-	{3, (const u8[]){28, 29, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead4
-	{3, (const u8[]){30, 31, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead5
+	{2, (const u8[]){20, 21, 22, 23, 23, 23, 23, 24, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
+	{2, (const u8[]){24, 24, 24, 24, 24, ASCR_BACK, 1}},                                                      //PlayerAnim_Dead1
+	{2, (const u8[]){25, 26, 27, 28, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
+	{2, (const u8[]){28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}},                                                      //PlayerAnim_Dead3
+	{2, (const u8[]){28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}},              //PlayerAnim_Dead4
+	{2, (const u8[]){28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}},                   //PlayerAnim_Dead5
 	
-	{10, (const u8[]){30, 30, 30, ASCR_BACK, 1}}, //PlayerAnim_Dead4
-	{ 3, (const u8[]){33, 34, 30, ASCR_REPEAT}},  //PlayerAnim_Dead5
+	{3, (const u8[]){28, 27, 26, 25, ASCR_CHGANI, PlayerAnim_Dead7}}, //PlayerAnim_Dead4
+	{3, (const u8[]){25, 25, 25, 25, ASCR_CHGANI, PlayerAnim_Dead7}},  //PlayerAnim_Dead5
 };
 
 static const Animation char_bf_anim2[PlayerAnim_Max] = {
@@ -169,15 +158,15 @@ static const Animation char_bf_anim2[PlayerAnim_Max] = {
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 
-	{5, (const u8[]){20, 21, 22, 23, 23, 23, 23, 23, 23, 23, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
-	{5, (const u8[]){23, ASCR_REPEAT}},                                                       //PlayerAnim_Dead1
-	{3, (const u8[]){24, 25, 26, 27, 27, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
-	{3, (const u8[]){27, ASCR_REPEAT}},                                                       //PlayerAnim_Dead3
-	{3, (const u8[]){28, 29, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead4
-	{3, (const u8[]){30, 31, 27, 27, 27, 27, 27, ASCR_CHGANI, PlayerAnim_Dead3}},             //PlayerAnim_Dead5
+	{2, (const u8[]){20, 21, 22, 23, 23, 23, 23, 24, ASCR_CHGANI, PlayerAnim_Dead1}}, //PlayerAnim_Dead0
+	{2, (const u8[]){24, 24, 24, 24, 24, ASCR_BACK, 1}},                                                      //PlayerAnim_Dead1
+	{2, (const u8[]){25, 26, 27, 28, ASCR_CHGANI, PlayerAnim_Dead3}}, //PlayerAnim_Dead2
+	{2, (const u8[]){28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}},                                                      //PlayerAnim_Dead3
+	{2, (const u8[]){28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}},              //PlayerAnim_Dead4
+	{2, (const u8[]){28, 28, 28, 28, ASCR_CHGANI, PlayerAnim_Dead3}},                   //PlayerAnim_Dead5
 	
-	{10, (const u8[]){30, 30, 30, ASCR_BACK, 1}}, //PlayerAnim_Dead4
-	{ 3, (const u8[]){33, 34, 30, ASCR_REPEAT}},  //PlayerAnim_Dead5
+	{3, (const u8[]){28, 27, 26, 25, ASCR_CHGANI, PlayerAnim_Dead7}}, //PlayerAnim_Dead4
+	{3, (const u8[]){25, 25, 25, 25, ASCR_CHGANI, PlayerAnim_Dead7}},  //PlayerAnim_Dead5
 };
 //Boyfriend player functions
 void Char_BF_SetFrame(void *user, u8 frame)
@@ -233,6 +222,7 @@ void Char_BF_Tick(Character *character)
 	//Retry screen
 	if (character->animatable.anim >= PlayerAnim_Dead3)
 	{
+		/*
 		//Tick skull fragments
 		if (this->skull_scale)
 		{
@@ -328,6 +318,7 @@ void Char_BF_Tick(Character *character)
 			FIXED_DEC(32,1),
 		};
 		Stage_DrawTex(&this->tex_retry, &retry_src, &retry_dst, FIXED_MUL(stage.camera.zoom, stage.bump));
+		*/
 	}
 	
 	if (stage.timercount >= 7733)
@@ -350,30 +341,13 @@ void Char_BF_SetAnim(Character *character, u8 anim)
 	{
 		case PlayerAnim_Dead0:
 			//Begin reading dead.arc and adjust focus
-			this->arc_dead = IO_AsyncReadFile(&this->file_dead_arc);
 			character->focus_x = FIXED_DEC(0,1);
 			character->focus_y = FIXED_DEC(-40,1);
 			character->focus_zoom = FIXED_DEC(125,100);
 			break;
 		case PlayerAnim_Dead2:
-			//Unload main.arc
-			Mem_Free(this->arc_main);
-			this->arc_main = this->arc_dead;
-			this->arc_dead = NULL;
-			
-			//Find dead.arc files
-			const char **pathp = (const char *[]){
-				"dead1.tim", //BF_ArcDead_Dead1
-				"dead2.tim", //BF_ArcDead_Dead2
-				"retry.tim", //BF_ArcDead_Retry
-				NULL
-			};
-			IO_Data *arc_ptr = this->arc_ptr;
-			for (; *pathp != NULL; pathp++)
-				*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
-			
 			//Load retry art
-			Gfx_LoadTex(&this->tex_retry, this->arc_ptr[BF_ArcDead_Retry], 0);
+			//Gfx_LoadTex(&this->tex_retry, this->arc_ptr[BF_ArcDead_Retry], 0);
 			break;
 	}
 	
@@ -389,7 +363,6 @@ void Char_BF_Free(Character *character)
 	
 	//Free art
 	Mem_Free(this->arc_main);
-	Mem_Free(this->arc_dead);
 }
 
 Character *Char_BF_New(fixed_t x, fixed_t y)
@@ -423,8 +396,6 @@ Character *Char_BF_New(fixed_t x, fixed_t y)
 	
 	//Load art
 	this->arc_main = IO_Read("\\CHAR\\BF.ARC;1");
-	this->arc_dead = NULL;
-	IO_FindFile(&this->file_dead_arc, "\\CHAR\\BFDEAD.ARC;1");
 	
 	const char **pathp = (const char *[]){
 		"idle.tim",   //BF_ArcMain_BF0
@@ -434,6 +405,10 @@ Character *Char_BF_New(fixed_t x, fixed_t y)
 		"right.tim",   //BF_ArcMain_BF4
 		"idleb.tim",   //BF_ArcMain_BF0
 		"dead0.tim", //BF_ArcMain_Dead0
+		"dead1.tim", //BF_ArcDead_Dead1
+		"dead2.tim", //BF_ArcDead_Dead2
+		"dead3.tim", //BF_ArcDead_Dead3
+		"retry.tim", //BF_ArcDead_Retry
 		NULL
 	};
 	IO_Data *arc_ptr = this->arc_ptr;

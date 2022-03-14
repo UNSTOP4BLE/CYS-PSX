@@ -67,7 +67,6 @@
 	
 				<!-- speed assets -->
 				<file name = "speed.arc" type = "data" source = "iso/speed/main.arc"/>
-				<file name = "spedead.arc" type = "data" source = "iso/speed/dead.arc"/>
 				
 				<!-- Dad assets -->
 				<file name = "dad.arc" type = "data" source = "iso/dad/main.arc"/>

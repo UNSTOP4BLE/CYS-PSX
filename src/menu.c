@@ -103,6 +103,10 @@ static struct
 		{
 			fixed_t back_r, back_g, back_b;
 		} freeplay;
+		struct
+		{
+			fixed_t back_r, back_g, back_b;
+		} mods;
 	#ifdef PSXF_NETWORK
 		struct
 		{
@@ -661,8 +665,8 @@ void Menu_Tick(void)
 			#else
 				menu.scroll >> (FIXED_SHIFT + 3),
 			#endif
-				253 >> 1, 231 >> 1, 113 >> 1,
-				253 >> 1, 113 >> 1, 155 >> 1
+				255 >> 1, 0 >> 1, 0 >> 1,
+				128 >> 1, 128 >> 1, 128 >> 1
 			);
 			break;
 		}
@@ -806,28 +810,9 @@ void Menu_Tick(void)
 				const char *text;
 			} menu_options[] = {
 				//{StageId_4_4, 0xFFFC96D7, "TEST"},
-				{StageId_1_4, 0xFF9271FD, "TUTORIAL"},
-				{StageId_1_1, 0xFF9271FD, "BOPEEBO"},
-				{StageId_1_2, 0xFF9271FD, "FRESH"},
-				{StageId_1_3, 0xFF9271FD, "DADBATTLE"},
-				{StageId_2_1, 0xFF223344, "SPOOKEEZ"},
-				{StageId_2_2, 0xFF223344, "SOUTH"},
-				{StageId_2_3, 0xFF223344, "MONSTER"},
-				{StageId_3_1, 0xFF941653, "PICO"},
-				{StageId_3_2, 0xFF941653, "PHILLY NICE"},
-				{StageId_3_3, 0xFF941653, "BLAMMED"},
-				{StageId_4_1, 0xFFFC96D7, "SATIN PANTIES"},
-				{StageId_4_2, 0xFFFC96D7, "HIGH"},
-				{StageId_4_3, 0xFFFC96D7, "MILF"},
-				{StageId_5_1, 0xFFA0D1FF, "COCOA"},
-				{StageId_5_2, 0xFFA0D1FF, "EGGNOG"},
-				{StageId_5_3, 0xFFA0D1FF, "WINTER HORRORLAND"},
-				{StageId_6_1, 0xFFFF78BF, "SENPAI"},
-				{StageId_6_2, 0xFFFF78BF, "ROSES"},
-				{StageId_6_3, 0xFFFF78BF, "THORNS"},
-				{StageId_7_1, 0xFFF6B604, "UGH"},
-				{StageId_7_2, 0xFFF6B604, "GUNS"},
-				{StageId_7_3, 0xFFF6B604, "STRESS"},
+				{StageId_1_1, 0x710000, "CONFRONTING YOURSELF"},
+				{StageId_1_2, 0x710000, "BEN"},
+				{StageId_1_3, 0x710000, "BEN OLD"},
 			};
 			
 			//Initialize page
@@ -931,28 +916,33 @@ void Menu_Tick(void)
 		}
 		case MenuPage_Mods:
 		{
+
 			static const struct
 			{
 				StageId stage;
 				const char *text;
+				u32 col;
 				boolean difficulty;
 			} menu_options[] = {
-				{StageId_Kapi_1, "VS KAPI", false},
-				{StageId_Clwn_1, "VS TRICKY", true},
-				{StageId_Clwn_4, "   EXPURGATION", false},
-				{StageId_2_4,    "CLUCKED", false},
+				{StageId_Kapi_1, "VS KAPI", 0xFFFC96D7, false},
+				{StageId_Clwn_1, "VS TRICKY", 0xFFFC96D7, true},
+				{StageId_Clwn_4, "   EXPURGATION", 0xFFFC96D7, false},
+				{StageId_2_4,    "CLUCKED", 0xFFFC96D7, false},
 			};
-			
+
 			//Initialize page
 			if (menu.page_swap)
 			{
 				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + SCREEN_HEIGHT2,1);
 				menu.page_param.stage.diff = StageDiff_Normal;
+				menu.page_state.mods.back_r = FIXED_DEC(255,1);
+				menu.page_state.mods.back_g = FIXED_DEC(255,1);
+				menu.page_state.mods.back_b = FIXED_DEC(255,1);
 			}
 			
 			//Draw page label
 			menu.font_bold.draw(&menu.font_bold,
-				"MODS",
+				"Credits",
 				16,
 				SCREEN_HEIGHT - 32,
 				FontAlign_Left
@@ -1024,10 +1014,20 @@ void Menu_Tick(void)
 			}
 			
 			//Draw background
+			fixed_t tgt_r = (fixed_t)((menu_options[menu.select].col >> 16) & 0xFF) << FIXED_SHIFT;
+			fixed_t tgt_g = (fixed_t)((menu_options[menu.select].col >>  8) & 0xFF) << FIXED_SHIFT;
+			fixed_t tgt_b = (fixed_t)((menu_options[menu.select].col >>  0) & 0xFF) << FIXED_SHIFT;
+			
+			menu.page_state.mods.back_r += (tgt_r - menu.page_state.mods.back_r) >> 4;
+			menu.page_state.mods.back_g += (tgt_g - menu.page_state.mods.back_g) >> 4;
+			menu.page_state.mods.back_b += (tgt_b - menu.page_state.mods.back_b) >> 4;
+		
 			Menu_DrawBack(
 				true,
 				8,
-				197 >> 1, 240 >> 1, 95 >> 1,
+				menu.page_state.mods.back_r >> (FIXED_SHIFT + 1),
+				menu.page_state.mods.back_g >> (FIXED_SHIFT + 1),
+				menu.page_state.mods.back_b >> (FIXED_SHIFT + 1),
 				0, 0, 0
 			);
 			break;
@@ -1163,7 +1163,7 @@ void Menu_Tick(void)
 			Menu_DrawBack(
 				true,
 				8,
-				253 >> 1, 113 >> 1, 155 >> 1,
+				250 >> 1, 0 >> 1, 255 >> 1,
 				0, 0, 0
 			);
 			break;

@@ -7,9 +7,7 @@ all: \
 	iso/stage/hud1.tim \
 	iso/stage/hud0weeb.tim \
 	iso/bf/main.arc \
-	iso/bf/dead.arc \
 	iso/speed/main.arc \
-	iso/speed/dead.arc \
 	iso/dad/main.arc \
 	iso/ben/main.arc \
 	iso/mchar/main.arc \

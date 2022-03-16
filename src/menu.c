@@ -138,7 +138,7 @@ static struct
 	} page_param;
 	
 	//Menu assets
-	Gfx_Tex tex_back, tex_ng, tex_story, tex_title;
+	Gfx_Tex tex_back, tex_thing, tex_ng, tex_story, tex_title;
 	FontData font_bold, font_arial;
 	
 	Character *mchar; //Title Girlfriend
@@ -219,6 +219,13 @@ static void Menu_DrawBack(boolean flash, s32 scroll, u8 r0, u8 g0, u8 b0, u8 r1,
 	else
 		Gfx_DrawTexCol(&menu.tex_back, &back_src, &back_dst, r1, g1, b1);
 }
+static void Menu_DrawFG(s32 scroll)
+{
+	RECT fg_src = {0, 0, 255, 255};
+	RECT fg_dst = {0, -scroll - SCREEN_WIDEADD2, SCREEN_WIDTH, SCREEN_WIDTH * 4 / 5};
+	
+	Gfx_DrawTex(&menu.tex_thing, &fg_src, &fg_dst);
+}
 
 static void Menu_DifficultySelector(s32 x, s32 y)
 {
@@ -296,6 +303,7 @@ void Menu_Load(MenuPage page)
 	//Load menu assets
 	IO_Data menu_arc = IO_Read("\\MENU\\MENU.ARC;1");
 	Gfx_LoadTex(&menu.tex_back,  Archive_Find(menu_arc, "back.tim"),  0);
+	Gfx_LoadTex(&menu.tex_thing,  Archive_Find(menu_arc, "thing.tim"),  0);
 	Gfx_LoadTex(&menu.tex_ng,    Archive_Find(menu_arc, "ng.tim"),    0);
 	Gfx_LoadTex(&menu.tex_story, Archive_Find(menu_arc, "story.tim"), 0);
 	Gfx_LoadTex(&menu.tex_title, Archive_Find(menu_arc, "title.tim"), 0);
@@ -537,10 +545,10 @@ void Menu_Tick(void)
 		case MenuPage_Main:
 		{
 			static const char *menu_options[] = {
-				"STORY MODE",
-				"FREEPLAY",
-				"MODS",
-				"OPTIONS",
+				"STORY MODE														",
+				"FREEPLAY														",
+				"CREDITS															",
+				"OPTIONS														",
 				#ifdef PSXF_NETWORK
 					"JOIN SERVER",
 					"HOST SERVER",
@@ -558,7 +566,7 @@ void Menu_Tick(void)
 			
 			//Draw version identification
 			menu.font_bold.draw(&menu.font_bold,
-				"PSXFUNKIN BY CUCKYDEV",
+				"CYSPSX BY UNSTOPABLE",
 				16,
 				SCREEN_HEIGHT - 32,
 				FontAlign_Left
@@ -656,7 +664,11 @@ void Menu_Tick(void)
 					FontAlign_Center
 				);
 			}
-			
+			//Draw background
+			Menu_DrawFG(
+				menu.scroll >> (FIXED_SHIFT + 3)
+			);
+
 			//Draw background
 			Menu_DrawBack(
 				menu.next_page == menu.page || menu.next_page == MenuPage_Title,
@@ -924,10 +936,17 @@ void Menu_Tick(void)
 				u32 col;
 				boolean difficulty;
 			} menu_options[] = {
-				{StageId_Kapi_1, "VS KAPI", 0xFFFC96D7, false},
-				{StageId_Clwn_1, "VS TRICKY", 0xFFFC96D7, true},
-				{StageId_Clwn_4, "   EXPURGATION", 0xFFFC96D7, false},
-				{StageId_2_4,    "CLUCKED", 0xFFFC96D7, false},
+				{StageId_Kapi_1, "	PORT DEVS", 0xFFFFFF, false},
+				{StageId_Clwn_1, "UNSTOPABLE", 0xFFB12B, false},
+				{StageId_Clwn_4, "IGORSOU", 0x00FF1D, false},
+				{StageId_Clwn_4, "DREAMCASTNICK", 0x7F3300, false},
+				{StageId_2_4,    "", 0xFFFFFF, false},
+				{StageId_Kapi_1, "	PLAYTESTERS", 0xFFFFFF, false},
+				{StageId_Clwn_1, "JOHN PAUL", 0xFFFFFF, false},
+				{StageId_2_4,    "", 0xFFFFFF, false},
+				{StageId_Kapi_1, "	OG MOD DEVS", 0xFFFFFF, false},
+				{StageId_Clwn_1, "JOTAMR", 0xFF3A3A, false},
+				{StageId_Clwn_4, "RICKYLONYOLO", 0x7143FF, false},
 			};
 
 			//Initialize page
@@ -969,17 +988,6 @@ void Menu_Tick(void)
 						menu.select++;
 					else
 						menu.select = 0;
-				}
-				
-				//Select option if cross is pressed
-				if (pad_state.press & (PAD_START | PAD_CROSS))
-				{
-					menu.next_page = MenuPage_Stage;
-					menu.page_param.stage.id = menu_options[menu.select].stage;
-					menu.page_param.stage.story = true;
-					if (!menu_options[menu.select].difficulty)
-						menu.page_param.stage.diff = StageDiff_Hard;
-					Trans_Start();
 				}
 				
 				//Return to main menu if circle is pressed

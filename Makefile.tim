@@ -22,7 +22,7 @@ iso/%.arc:
 	tools/funkinarcpak/funkinarcpak $@ $^
 
 # Menu
-iso/menu/menu.arc: iso/menu/back.tim iso/menu/ng.tim iso/menu/story.tim iso/menu/title.tim
+iso/menu/menu.arc: iso/menu/back.tim iso/menu/thing.tim iso/menu/ng.tim iso/menu/story.tim iso/menu/title.tim
 
 # BF
 iso/bf/main.arc: iso/bf/idle.tim iso/bf/idleb.tim iso/bf/down.tim iso/bf/up.tim iso/bf/left.tim iso/bf/right.tim iso/bf/dead0.tim iso/bf/dead1.tim iso/bf/dead2.tim iso/bf/dead3.tim iso/bf/retry.tim

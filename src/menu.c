@@ -546,9 +546,9 @@ void Menu_Tick(void)
 		{
 			static const char *menu_options[] = {
 				//"STORY MODE														",
-				"FREEPLAY														",
+				"FREEPLAY															",
 				"CREDITS															",
-				"OPTIONS														",
+				"OPTIONS															",
 				#ifdef PSXF_NETWORK
 					"JOIN SERVER",
 					"HOST SERVER",
@@ -947,6 +947,11 @@ void Menu_Tick(void)
 				{StageId_Kapi_1, "	OG MOD DEVS", 0xFFFFFF, false},
 				{StageId_Clwn_1, "JOTAMR", 0xFF3A3A, false},
 				{StageId_Clwn_4, "RICKYLONYOLO", 0x7143FF, false},
+				{StageId_2_4,    "", 0xFFFFFF, false},
+				{StageId_Kapi_1, "	OG BEN DEVS", 0xFFFFFF, false},
+				{StageId_Clwn_1, "TOASTZYTOAZT", 0xFFFFFF, false},
+				{StageId_Clwn_4, "ALEYNA", 0xFFFFFF, false},
+				{StageId_Clwn_4, "WORTH", 0xFFFFFF, false},
 			};
 
 			//Initialize page

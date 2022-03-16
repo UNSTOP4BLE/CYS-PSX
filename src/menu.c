@@ -545,7 +545,7 @@ void Menu_Tick(void)
 		case MenuPage_Main:
 		{
 			static const char *menu_options[] = {
-				"STORY MODE														",
+				//"STORY MODE														",
 				"FREEPLAY														",
 				"CREDITS															",
 				"OPTIONS														",
@@ -599,16 +599,16 @@ void Menu_Tick(void)
 				{
 					switch (menu.select)
 					{
-						case 0: //Story Mode
+					/*	case 0: //Story Mode
 							menu.next_page = MenuPage_Story;
-							break;
-						case 1: //Freeplay
+							break; */
+						case 0: //Freeplay
 							menu.next_page = MenuPage_Freeplay;
 							break;
-						case 2: //Mods
+						case 1: //Mods
 							menu.next_page = MenuPage_Mods;
 							break;
-						case 3: //Options
+						case 2: //Options
 							menu.next_page = MenuPage_Options;
 							break;
 					#ifdef PSXF_NETWORK
@@ -666,7 +666,7 @@ void Menu_Tick(void)
 			}
 			//Draw background
 			Menu_DrawFG(
-				menu.scroll >> (FIXED_SHIFT + 3)
+				menu.scroll >> (FIXED_SHIFT + 1)
 			);
 
 			//Draw background
@@ -880,7 +880,7 @@ void Menu_Tick(void)
 				if (pad_state.press & PAD_CIRCLE)
 				{
 					menu.next_page = MenuPage_Main;
-					menu.next_select = 1; //Freeplay
+					menu.next_select = 0; //Freeplay
 					Trans_Start();
 				}
 			}
@@ -994,7 +994,7 @@ void Menu_Tick(void)
 				if (pad_state.press & PAD_CIRCLE)
 				{
 					menu.next_page = MenuPage_Main;
-					menu.next_select = 2; //Mods
+					menu.next_select = 1; //Mods
 					Trans_Start();
 				}
 			}
@@ -1130,7 +1130,7 @@ void Menu_Tick(void)
 				if (pad_state.press & PAD_CIRCLE)
 				{
 					menu.next_page = MenuPage_Main;
-					menu.next_select = 3; //Options
+					menu.next_select = 2; //Options
 					Trans_Start();
 				}
 			}

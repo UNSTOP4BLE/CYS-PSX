@@ -143,7 +143,7 @@ static const Animation char_bf_anim[PlayerAnim_Max] = {
 };
 
 static const Animation char_bf_anim2[PlayerAnim_Max] = {
-	{2, (const u8[]){ 32,  33,  34,  35, ASCR_CHGANI, CharAnim_Idle}}, //CharAnim_Idle
+	{2, (const u8[]){ 29,  30,  31, 32, ASCR_CHGANI, CharAnim_Idle}}, //CharAnim_Idle
 	{1, (const u8[]){ 4,  5, 6, 7, ASCR_BACK, 3}},             //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_LeftAlt
 	{1, (const u8[]){ 8, 9, 10, 11, ASCR_BACK, 3}},             //CharAnim_Down
@@ -168,6 +168,7 @@ static const Animation char_bf_anim2[PlayerAnim_Max] = {
 	{3, (const u8[]){28, 27, 26, 25, ASCR_CHGANI, PlayerAnim_Dead7}}, //PlayerAnim_Dead4
 	{3, (const u8[]){25, 25, 25, 25, ASCR_CHGANI, PlayerAnim_Dead7}},  //PlayerAnim_Dead5
 };
+
 //Boyfriend player functions
 void Char_BF_SetFrame(void *user, u8 frame)
 {
